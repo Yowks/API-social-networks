@@ -1,13 +1,13 @@
-const UserModel = require('../models/user.js')
+const EventModel = require('../models/event.js')
 
 /**
- * User
+ * Event
  * @class
  */
-class User {
+class Event {
   constructor (app, connect) {
     this.app = app
-    this.UserModel = connect.model('User', UserModel)
+    this.EventModel = connect.model('Event', EventModel)
 
     this.create()
     this.show()
@@ -20,10 +20,10 @@ class User {
    * Show
    */
   show () {
-    this.app.get('/user/show/:id', (req, res) => {
+    this.app.get('/event/show/:id', (req, res) => {
       try {
-        this.UserModel.findById(req.params.id).then(user => {
-          res.status(200).json(user || {})
+        this.EventModel.findById(req.params.id).then(event => {
+          res.status(200).json(event || {})
         }).catch(err => {
           res.status(500).json({
             code: 500,
@@ -43,10 +43,10 @@ class User {
    * Delete
    */
   delete () {
-    this.app.delete('/user/delete/:id', (req, res) => {
+    this.app.delete('/event/delete/:id', (req, res) => {
       try {
-        this.UserModel.findByIdAndRemove(req.params.id).then(user => {
-          res.status(200).json(user || {})
+        this.EventModel.findByIdAndRemove(req.params.id).then(event => {
+          res.status(200).json(event || {})
         }).catch(err => {
           res.status(500).json({
             code: 500,
@@ -66,10 +66,10 @@ class User {
    * Update
    */
   update () {
-    this.app.put('/user/update/:id', (req, res) => {
+    this.app.put('/event/update/:id', (req, res) => {
       try {
-        this.UserModel.findByIdAndUpdate(req.params.id, req.body).then(user => {
-          res.status(200).json(user || {})
+        this.EventModel.findByIdAndUpdate(req.params.id, req.body).then(event => {
+          res.status(200).json(event || {})
         }).catch(err => {
           res.status(500).json({
             code: 500,
@@ -89,27 +89,17 @@ class User {
    * Create
    */
   create () {
-    this.app.post('/user/create', (req, res) => {
+    this.app.post('/event/create', (req, res) => {
       try {
-        const userModel = this.UserModel(req.body)
-        this.UserModel.find({email: req.body.email}).then(result => {
-          if (!result.length) {
-            userModel.save().then(user => {
-              res.status(200).json(user || {})
-            }).catch(err => {
-              res.status(500).json({
-                code: 500,
-                message: err
-              })
-            })
-            return
-          } 
-          // Mail existant
-          res.status(403).json({
-            code: 403,
-            message: 'Mail existant'
-          }) 
-        }) 
+        const eventModel = this.EventModel(req.body)
+        eventModel.save().then(event => {
+          res.status(200).json(event || {})
+        }).catch(err => {
+          res.status(500).json({
+            code: 500,
+            message: err
+          })
+        })
       } catch (err) {
         res.status(500).json({
           code: 500,
@@ -123,7 +113,7 @@ class User {
    * List
    */
   search () {
-    this.app.post('/user/search', (req, res) => {
+    this.app.post('/event/search', (req, res) => {
       try {
         const pipe = [{ $limit: req.body.limit || 10 }]
 
@@ -131,8 +121,8 @@ class User {
           pipe.push({$sort: req.body.sort})
         }
 
-        this.UserModel.aggregate(pipe).then(user => {
-          res.status(200).json(user || {})
+        this.EventModel.aggregate(pipe).then(event => {
+          res.status(200).json(event || {})
         }).catch(err => {
           res.status(500).json({
             code: 500,
@@ -149,4 +139,4 @@ class User {
   }
 }
 
-module.exports = User
+module.exports = Event
