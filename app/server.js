@@ -19,7 +19,8 @@ class Server {
    * @return {Object} connect
    */
   dbConnect () {
-    const host = 'mongodb://localhost:27017/social-networks'
+    // const host = 'mongodb://localhost:27017/social-networks' #Local connection
+    const host = 'mongodb+srv://root:test@cluster0-ijrao.gcp.mongodb.net/test?retryWrites=true&w=majority' // Atlas connection
     const connect = mongoose.createConnection(host)
 
     connect.on('error', (err) => {
@@ -61,6 +62,7 @@ class Server {
   routes () {
     new routes.User(this.app, this.connect)
     new routes.Event(this.app, this.connect)
+    new routes.Group(this.app, this.connect)
 
     this.app.use((req, res) => {
       res.status(404).json({

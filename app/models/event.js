@@ -1,18 +1,18 @@
 const mongoose = require('mongoose')
 
 const Schema = new mongoose.Schema({
-  administrator: String,
-  name: String,
-  description: String,
-  begin_date: Date,
-  end_date: Date,
+  administrator: {type: String, required: true},
+  name: {type: String, required: true},
+  description: {type: String, required: true},
+  begin_date: {type: Date, required: true},
+  end_date: {type: Date, required: true},
   location: {
-    lat: Number,
-    lon: Number
+    lat: {type: Number, required: true},
+    lon: {type: Number, required: true}
   },
   staff: [String],
   members: [String],
-  privacy: Boolean,
+  privacy: {type: Boolean, required: true},
   image_event: {
     type: String,
     default: 'https://pbs.twimg.com/profile_images/1126137112825335808/L5WvNz8W_400x400.jpg'
