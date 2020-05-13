@@ -24,7 +24,6 @@ Base URL: `http://localhost:3000/`
 ## Database 
 
 DB : Cluster connection to Atlas
-
 <br>
 
 ### Users :
