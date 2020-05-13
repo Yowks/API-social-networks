@@ -23,7 +23,7 @@ class Group {
   show () {
     this.app.get('/group/show/:id', (req, res) => {
       try {
-        this.GroupModel.findById(req.params.id).populate("administrator", "members").then(group => {
+        this.GroupModel.findById(req.params.id).populate("administrator, members").then(group => {
           res.status(200).json(group || {})
         }).catch(err => {
           res.status(500).json({
@@ -47,7 +47,6 @@ class Group {
     this.app.get('/group/show/:id/members', (req, res) => {
       try {
         this.GroupModel.findById(req.params.id).populate("members").select('members').then(group => {
-          console.log(group)
           res.status(200).json(group || {})
         }).catch(err => {
           res.status(500).json({
@@ -108,7 +107,6 @@ class Group {
                 if(!administrator.includes(members[beDeleted]) && administrator.length>=1){ //Look if the member going to be deleted is not the only administator of the group
                   members.splice(beDeleted,1)
                   let beDeletedAdmin = administrator.indexOf(element) // Also Delete in administrators
-                  console.log(element)
                   //administrator.splice(beDeletedAdmin,1)
                 }else{
                   res.status(500).json({
@@ -131,7 +129,6 @@ class Group {
               if(administrator.includes(element)){ // Look if member already in group or not
                 let beDeleted = administrator.indexOf(element)
                 if(administrator.length>1){ //Look if the member going to be deleted is not the only administator of the group
-                  console.log("goo")
                   administrator.splice(beDeleted,1)
                   let beDeletedMember = members.indexOf(element) // Also Delete in administrators
                   members.splice(beDeletedMember,1)
@@ -145,7 +142,6 @@ class Group {
               }else{ // Add new member
                 members.push(element) // To resolve
                 administrator.push(element)
-                console.log("hello")
               }
             });
           }
@@ -198,18 +194,18 @@ class Group {
   search () {
     this.app.get('/group/search', (req, res) => {
       try {
-        const pipe = [{ $limit: req.body.limit || 10 }]
+        /*const pipe = [{ $limit: req.body.limit || 10 }]
 
         if (req.body.sort) {
           pipe.push({$sort: req.body.sort})
-        }
+        }*/
 
-        this.GroupModel.aggregate(pipe).populate("members", "administrator").then(group => {
+        this.GroupModel.find({}).populate("members, administrator").then(group => {
           res.status(200).json(group || {})
         }).catch(err => {
           res.status(500).json({
             code: 500,
-            message: err
+            message: "err"
           })
         })
       } catch (err) {

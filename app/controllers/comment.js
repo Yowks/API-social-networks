@@ -19,18 +19,17 @@ class Comment {
 
   /**
    * Récupérer tout les commentaires
-   * @Endpoint : /comments
+   * @Endpoint : /comment
    * @Method : GET
    */
   get_comments() {
-    this.app.get('/comments', (req, res) => {
+    this.app.get('/comment', (req, res) => {
       try {
         this.CommentModel.find({}, function(err, comments) {
           res.status(200).json({ 
           comments: comments, 
           })
-        }).populate(author_id, ref);
-
+        }).populate("author_id, ref")
       } catch (err) {
         res.status(500).json({ 
           error: { 
@@ -44,13 +43,13 @@ class Comment {
 
   /**
   * Récupérer les données d'un commentaire
-  * @Endpoint : /comments/{id}
+  * @Endpoint : /comment/{id}
   * @Method : GET
   */
   get_comment() {
-    this.app.get('/comments/:id', (req, res) => {
+    this.app.get('/comment/:id', (req, res) => {
       try {
-        this.CommentModel.findById(req.params.id).populate(author_id).then(comment => {
+        this.CommentModel.findById(req.params.id).populate("author_id").then(comment => {
           if(comment){
             res.status(200).json({ 
             comment: comment
@@ -86,11 +85,11 @@ class Comment {
 
   /**
   * Créer un commentaire
-  * @Endpoint : /comments/create
+  * @Endpoint : /comment/create
   * @Method : POST
   */
   create_comment() {
-    this.app.post('/comments/create', (req, res) => {
+    this.app.post('/comment/create', (req, res) => {
       try {
         const commentModel = new this.CommentModel(req.body)
 
@@ -121,11 +120,11 @@ class Comment {
 
   /**
   * Editer un commentaire
-  * @Endpoint : /comments/{id}/update
+  * @Endpoint : /comment/{id}/update
   * @Method : PUT
   */
   update_comment() {
-    this.app.put('/comments/:id/update', (req, res) => {
+    this.app.put('/comment/:id/update', (req, res) => {
       try {
         this.CommentModel.findByIdAndUpdate(req.params.id, req.body).then(comment => {
           if(comment){
@@ -162,11 +161,11 @@ class Comment {
 
   /**
   * Supprimer un commentaire
-  * @Endpoint : /comments/{id}/delete
+  * @Endpoint : /comment/{id}/delete
   * @Method : DELETE
   */
   delete_comment() {
-    this.app.delete('/comments/:id/delete', (req, res) => {
+    this.app.delete('/comment/:id/delete', (req, res) => {
       try {
         this.CommentModel.findByIdAndDelete(req.params.id).then(comment => {
 

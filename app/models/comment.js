@@ -4,7 +4,7 @@ const Schema = new mongoose.Schema({
     type: {type: String, enum: ['group_message', 'event_message', 'photo_message']},
     author_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'User'
     },
     ref: String,
     content: String,

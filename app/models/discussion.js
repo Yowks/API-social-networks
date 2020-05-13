@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 
 const Schema = new mongoose.Schema({
-    type: String,
-    date_creation: { type: Date, default: Date.now },
-    enable: { type: Boolean, default: 1 }
+    type: { type: String, required: true },
+    date_creation: { type: Date, default: Date.now, required: true },
+    enable: { type: Boolean, default: 1, required: true }
 }, {
     collection: 'discussions',
     minimize: false,

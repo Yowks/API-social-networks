@@ -84,6 +84,7 @@ class Server {
     new routes.Event(this.app, this.connect)
     new routes.Group(this.app, this.connect)
     new routes.Comment(this.app, this.connect)
+    new routes.Message(this.app, this.connect)
 
     this.app.use((req, res) => {
       res.status(404).json({

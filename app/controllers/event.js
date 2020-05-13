@@ -24,7 +24,7 @@ class Event {
   show () {
     this.app.get('/event/show/:id', (req, res) => {
       try {
-        this.EventModel.findById(req.params.id).then(event => {
+        this.EventModel.findById(req.params.id).populate("administrator, members, staff").then(event => {
           res.status(200).json(event || {})
         }).catch(err => {
           res.status(500).json({
@@ -124,13 +124,7 @@ class Event {
   search () {
     this.app.get('/event/search', (req, res) => {
       try {
-        const pipe = [{ $limit: req.body.limit || 10 }]
-
-        if (req.body.sort) {
-          pipe.push({$sort: req.body.sort})
-        }
-
-        this.EventModel.aggregate(pipe).then(event => {
+        this.EventModel.find({}).populate("administrator, members, staff").then(event => {
           res.status(200).json(event || {})
         }).catch(err => {
           res.status(500).json({
