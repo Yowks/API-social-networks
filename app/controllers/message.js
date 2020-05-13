@@ -22,11 +22,11 @@ class Message {
 
 	/**
 	* Récupérer tout les messages
-	* @Endpoint : /messages
+	* @Endpoint : /message
 	* @Method : GET
 	*/
 	get_messages() {
-		this.app.get('/messages', (req, res) => {
+		this.app.get('/message', (req, res) => {
 			try {
 				this.MessageModel.find({}, function(err, messages) {
 					res.status(200).json({ 
@@ -48,11 +48,11 @@ class Message {
 
 	/**
 	* Récupérer les données d'un message
-	* @Endpoint : /messages/{id}
+	* @Endpoint : /message/{id}
 	* @Method : GET
 	*/
 	get_message() {
-		this.app.get('/messages/:id', (req, res) => {
+		this.app.get('/message/:id', (req, res) => {
 			try {
 				this.MessageModel.findById(req.params.id).populate('author_id, discussion_ref').then(message => {
 					if(message){
@@ -91,11 +91,11 @@ class Message {
 
 	/**
 	* Récupérer les commentaires d'un messages
-	* @Endpoint : /messages/{id}/comment
+	* @Endpoint : /message/{id}/comment
 	* @Method : GET
 	*/
 	get_messages_comments() {
-		this.app.get('/messages/:id/comment', (req, res) => {
+		this.app.get('/message/:id/comment', (req, res) => {
 			try {
 				this.MessageModel.findById(req.params.id).populate('author_id, discussion_ref').then(message => {
 					if(message){
@@ -137,11 +137,11 @@ class Message {
 
 	/**
 	* Créer un message
-	* @Endpoint : /messages/create
+	* @Endpoint : /message/create
 	* @Method : POST
 	*/
 	create_message() {
-		this.app.post('/messages/create', (req, res) => {
+		this.app.post('/message/create', (req, res) => {
 			try {
 				const messageModel = new this.MessageModel(req.body)
 				messageModel.save().then(message => {
@@ -170,11 +170,11 @@ class Message {
 
 	/**
 	* Editer un message
-	* @Endpoint : /messages/{id}/update
+	* @Endpoint : /message/{id}/update
 	* @Method : PUT
 	*/
 	update_message() {
-		this.app.put('/messages/:id/update', (req, res) => {
+		this.app.put('/message/:id/update', (req, res) => {
 			try {
 				this.MessageModel.findByIdAndUpdate(req.params.id, req.body).populate('author_id, discussion_ref').then(message => {
 					if(message){
@@ -211,11 +211,11 @@ class Message {
 
 	/**
 	* Supprimer un message
-	* @Endpoint : /messages/{id}/delete
+	* @Endpoint : /message/{id}/delete
 	* @Method : DELETE
 	*/
 	delete_message() {
-		this.app.delete('/messages/:id/delete', (req, res) => {
+		this.app.delete('/message/:id/delete', (req, res) => {
 			try {
 				this.MessageModel.findByIdAndDelete(req.params.id).populate('author_id, discussion_ref').then(message => {
 					if(message){

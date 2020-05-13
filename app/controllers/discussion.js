@@ -45,7 +45,6 @@ class Discussion {
     })
   }
 
-
   /**
   * Récupérer les données d'une discussion
   * @Endpoint : /discussion/{id}
@@ -87,7 +86,6 @@ class Discussion {
     })
   }
 
-
   /**
   * Récupérer les messages d'une discussion
   * @Endpoint : /discussion/{id}/message
@@ -112,7 +110,6 @@ class Discussion {
               } 
             })  
           }
-
         }).catch(err => {
           res.status(400).json({ 
             error: {
@@ -121,7 +118,6 @@ class Discussion {
             } 
           }) 
         });
-
       } catch (err) {
         res.status(500).json({ 
           error: { 
@@ -133,7 +129,6 @@ class Discussion {
     })
   }
 
-
   /**
   * Créer une discussion
   * @Endpoint : /discussion/create
@@ -143,7 +138,6 @@ class Discussion {
     this.app.post('/discussion/create', (req, res) => {
       try {
         const discussionModel = new this.DiscussionModel(req.body)
-
         if(req.body.type && (req.body.type == "group" || req.body.type == 'event')){
           discussionModel.save().then(discussion => {
             res.status(201).json({ 
@@ -157,7 +151,6 @@ class Discussion {
               } 
             }) 
           })
-
         }else{
           res.status(400).json({ 
             error: {

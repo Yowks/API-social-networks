@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const Schema = new mongoose.Schema({
-    type: {type: String, enum: ['group_message', 'event_message', 'photo_message']},
+    type: {type: String, required: true},
     author_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
