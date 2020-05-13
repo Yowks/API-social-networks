@@ -1,14 +1,7 @@
-# api-social-networks
-
-#Cluster connection
-
-Cluster connection to Atlas
-
 # SocialNetwork ![GitHub last commit](https://img.shields.io/github/last-commit/Yowks/API-social-networks)
 
 This is an event API Rest - Facebook like
 <br>
-*This project was done in school (4th year)*
 
 ## Installation
 
@@ -27,6 +20,10 @@ node app.js
 
 ## Endpoints
 Base URL: `http://localhost:3000/`
+
+## Database 
+
+DB : Cluster connection to Atlas
 
 <br>
 
