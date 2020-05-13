@@ -91,11 +91,11 @@ class Message {
 
 	/**
 	* Récupérer les commentaires d'un messages
-	* @Endpoint : /messages/{id}/comments
+	* @Endpoint : /messages/{id}/comment
 	* @Method : GET
 	*/
 	get_messages_comments() {
-		this.app.get('/messages/:id/comments', (req, res) => {
+		this.app.get('/messages/:id/comment', (req, res) => {
 			try {
 				this.MessageModel.findById(req.params.id).populate('author_id, discussion_ref').then(message => {
 					if(message){

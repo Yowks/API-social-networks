@@ -4,6 +4,7 @@ const Group = require('./controllers/group.js')
 const Comment = require('./controllers/comment.js')
 const Message = require('./controllers/message.js')
 const Discussion = require('./controllers/discussion.js')
+const Album = require('./controllers/album.js')
 
 module.exports = {
   User,
@@ -11,5 +12,6 @@ module.exports = {
   Group,
   Comment,
   Message,
-  Discussion
+  Discussion,
+  Album
 }

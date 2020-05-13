@@ -22,11 +22,11 @@ class Discussion {
 
   /**
   * Récupérer toutes les discussions
-  * @Endpoint : /discussions
+  * @Endpoint : /discussion
   * @Method : GET
   */
   get_discussions() {
-    this.app.get('/discussions', (req, res) => {
+    this.app.get('/discussion', (req, res) => {
       try {
       this.DiscussionModel.find({}, function(err, discussions) {
         res.status(200).json({ 
@@ -48,11 +48,11 @@ class Discussion {
 
   /**
   * Récupérer les données d'une discussion
-  * @Endpoint : /discussions/{id}
+  * @Endpoint : /discussion/{id}
   * @Method : GET
   */
   get_discussion() {
-    this.app.get('/discussions/:id', (req, res) => {
+    this.app.get('/discussion/:id', (req, res) => {
       try {
         this.DiscussionModel.findById(req.params.id).then(discussion => {
           if(discussion){
@@ -90,11 +90,11 @@ class Discussion {
 
   /**
   * Récupérer les messages d'une discussion
-  * @Endpoint : /discussions/{id}/messages
+  * @Endpoint : /discussion/{id}/message
   * @Method : GET
   */
   get_discussion_messages() {
-    this.app.get('/discussions/:id/messages', (req, res) => {
+    this.app.get('/discussion/:id/message', (req, res) => {
       try {
         this.DiscussionModel.findById(req.params.id).then(discussion => {
           if(discussion){
@@ -136,11 +136,11 @@ class Discussion {
 
   /**
   * Créer une discussion
-  * @Endpoint : /discussions/create
+  * @Endpoint : /discussion/create
   * @Method : POST
   */
   create_discussion() {
-    this.app.post('/discussions/create', (req, res) => {
+    this.app.post('/discussion/create', (req, res) => {
       try {
         const discussionModel = new this.DiscussionModel(req.body)
 
@@ -180,11 +180,11 @@ class Discussion {
 
   /**
   * Editer une discussion
-  * @Endpoint : /discussions/{id}/update
+  * @Endpoint : /discussion/{id}/update
   * @Method : PUT
   */
   update_discussion() {
-    this.app.put('/discussions/:id/update', (req, res) => {
+    this.app.put('/discussion/:id/update', (req, res) => {
       try {
         this.DiscussionModel.findByIdAndUpdate(req.params.id, req.body).then(discussion => {
           if(discussion){
@@ -221,11 +221,11 @@ class Discussion {
 
   /**
   * Supprimer une discussion
-  * @Endpoint : /discussions/{id}/delete
+  * @Endpoint : /discussion/{id}/delete
   * @Method : DELETE
   */
   delete_discussion() {
-    this.app.delete('/discussions/:id/delete', (req, res) => {
+    this.app.delete('/discussion/:id/delete', (req, res) => {
       try {
         this.DiscussionModel.findByIdAndDelete(req.params.id).then(discussion => {
           if(discussion){
