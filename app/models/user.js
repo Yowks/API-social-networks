@@ -1,17 +1,17 @@
 const mongoose = require('mongoose')
 
 const Schema = new mongoose.Schema({
-  first_name: String,
-  last_name: String,
-  email: String,
-  password: String,
-  age: Number,
-  city: String,
-  city_code: String,
-  street_number: String,
-  street_type: String,
-  street_name: String,
-  phone: String,
+  first_name: {type: String,required: true},
+  last_name: {type: String,required: true},
+  email: {type: String, unique:true, required: true},
+  password: {type: String,required: true},
+  age: {type: Number,required: true},
+  city: {type: String,required: true},
+  city_code: {type: Number,required: true},
+  street_number: {type: String,required: true},
+  street_type: {type: String,required: true},
+  street_name: {type: String,required: true},
+  phone: {type: String,required: true},
   image_profil: {
     type: String,
     default: 'https://pbs.twimg.com/profile_images/1126137112825335808/L5WvNz8W_400x400.jpg'

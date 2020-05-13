@@ -1,7 +1,11 @@
 const mongoose = require('mongoose')
 
 const Schema = new mongoose.Schema({
-  administrator: {type: String, required: true},
+  administrator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', 
+    required: true
+  },
   name: {type: String, required: true},
   description: {type: String, required: true},
   begin_date: {type: Date, required: true},
@@ -10,8 +14,16 @@ const Schema = new mongoose.Schema({
     lat: {type: Number, required: true},
     lon: {type: Number, required: true}
   },
-  staff: [String],
-  members: [String],
+  staff: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  }],
+  members: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  }],
   privacy: {type: Boolean, required: true},
   image_event: {
     type: String,

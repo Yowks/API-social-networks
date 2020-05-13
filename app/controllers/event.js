@@ -18,6 +18,8 @@ class Event {
 
   /**
    * Show
+   * @Endpoint : /event/show/{id}
+   * @Method : GET
    */
   show () {
     this.app.get('/event/show/:id', (req, res) => {
@@ -41,9 +43,11 @@ class Event {
 
   /**
    * Delete
+   * @Endpoint : /event/{id}/delete
+   * @Method : DELETE
    */
   delete () {
-    this.app.delete('/event/delete/:id', (req, res) => {
+    this.app.delete('/event/:id/delete', (req, res) => {
       try {
         this.EventModel.findByIdAndRemove(req.params.id).then(event => {
           res.status(200).json(event || {})
@@ -64,9 +68,11 @@ class Event {
 
   /**
    * Update
+   * @Endpoint : /event/{id}/update
+   * @Method : PUT
    */
   update () {
-    this.app.put('/event/update/:id', (req, res) => {
+    this.app.put('/event/:id/update', (req, res) => {
       try {
         this.EventModel.findByIdAndUpdate(req.params.id, req.body).then(event => {
           res.status(200).json(event || {})
@@ -87,11 +93,14 @@ class Event {
 
   /**
    * Create
+   * @Endpoint : /event/create
+   * @Method : POST
    */
   create () {
     this.app.post('/event/create', (req, res) => {
       try {
         const eventModel = this.EventModel(req.body)
+        
         eventModel.save().then(event => {
           res.status(200).json(event || {})
         }).catch(err => {
@@ -113,7 +122,7 @@ class Event {
    * List
    */
   search () {
-    this.app.post('/event/search', (req, res) => {
+    this.app.get('/event/search', (req, res) => {
       try {
         const pipe = [{ $limit: req.body.limit || 10 }]
 

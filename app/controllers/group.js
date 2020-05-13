@@ -23,7 +23,7 @@ class Group {
   show () {
     this.app.get('/group/show/:id', (req, res) => {
       try {
-        this.GroupModel.findById(req.params.id).then(group => {
+        this.GroupModel.findById(req.params.id).populate("administrator", "members").then(group => {
           res.status(200).json(group || {})
         }).catch(err => {
           res.status(500).json({
@@ -46,7 +46,7 @@ class Group {
   showMembers () {
     this.app.get('/group/show/:id/members', (req, res) => {
       try {
-        this.GroupModel.findById(req.params.id).select('members').then(group => {
+        this.GroupModel.findById(req.params.id).populate("members").select('members').then(group => {
           console.log(group)
           res.status(200).json(group || {})
         }).catch(err => {
@@ -68,7 +68,7 @@ class Group {
    * Delete
    */
   delete () {
-    this.app.delete('/group/delete/:id', (req, res) => {
+    this.app.delete('/group/:id/delete', (req, res) => {
       try {
         this.GroupModel.findByIdAndRemove(req.params.id).then(group => {
           res.status(200).json(group || {})
@@ -91,21 +91,72 @@ class Group {
    * Update
    */
   update () {
-    this.app.put('/group/update/:id', (req, res) => {
+    this.app.put('/group/:id/update', (req, res) => {
       try {
         const groupModel = this.GroupModel(req.body)
-            this.GroupModel.findByIdAndUpdate(req.params.id, req.body).then(group => {
-              groupModel.save().then(group => {
-                res.status(200).json(group || {})
-            }).catch(err => {
-              res.status(500).json({
-                code: 500,
-                message: err
-              })
-            })
-            return
-          })
-      } catch (err) {
+        this.GroupModel.findById(req.params.id).then(group => {
+          const members = group.members
+          const administrator = group.administrator
+
+          /**
+           * Members update
+           */
+          if(groupModel.members.length>0 && groupModel.members[0]!=""){ // User Add or Suppression
+            groupModel.members.forEach(element => {
+              if(members.includes(element)){ // Look if member already in group or not
+                let beDeleted = members.indexOf(element)
+                if(!administrator.includes(members[beDeleted]) && administrator.length>=1){ //Look if the member going to be deleted is not the only administator of the group
+                  members.splice(beDeleted,1)
+                  let beDeletedAdmin = administrator.indexOf(element) // Also Delete in administrators
+                  console.log(element)
+                  //administrator.splice(beDeletedAdmin,1)
+                }else{
+                  res.status(500).json({
+                    code: 500,
+                    message: "Can't delete the only administrator of the group"
+                  })
+                }
+                
+              }else{ // Add new member
+                members.push(element)
+              }
+            });
+          }
+
+          /**
+           * Administator update
+           */
+          if(groupModel.administrator.length>0 && groupModel.administrator[0]!=""){ // User Add or Suppression
+            groupModel.administrator.forEach(element => {
+              if(administrator.includes(element)){ // Look if member already in group or not
+                let beDeleted = administrator.indexOf(element)
+                if(administrator.length>1){ //Look if the member going to be deleted is not the only administator of the group
+                  console.log("goo")
+                  administrator.splice(beDeleted,1)
+                  let beDeletedMember = members.indexOf(element) // Also Delete in administrators
+                  members.splice(beDeletedMember,1)
+                }else{
+                  res.status(500).json({
+                    code: 500,
+                    message: "Can't delete the only administrator of the group"
+                  })
+                }
+                
+              }else{ // Add new member
+                members.push(element) // To resolve
+                administrator.push(element)
+                console.log("hello")
+              }
+            });
+          }
+
+          group.save()
+          
+          res.status(200).json(group || {})
+
+        return
+        })
+      }catch (err) {
         res.status(500).json({
           code: 500,
           message: err
@@ -145,7 +196,7 @@ class Group {
    * List
    */
   search () {
-    this.app.post('/group/search', (req, res) => {
+    this.app.get('/group/search', (req, res) => {
       try {
         const pipe = [{ $limit: req.body.limit || 10 }]
 
@@ -153,7 +204,7 @@ class Group {
           pipe.push({$sort: req.body.sort})
         }
 
-        this.GroupModel.aggregate(pipe).then(group => {
+        this.GroupModel.aggregate(pipe).populate("members", "administrator").then(group => {
           res.status(200).json(group || {})
         }).catch(err => {
           res.status(500).json({

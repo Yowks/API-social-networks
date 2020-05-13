@@ -60,9 +60,30 @@ class Server {
    * Routes
    */
   routes () {
+
+    this.app.use((req, res, next) => {
+      if(req.headers['token']){
+        if(req.headers['token'] !== "e2a5ze515a1z51e51"){
+          res.status(401).json({
+            code: 401,
+            message: 'Failed to authenticate token',
+          })
+        }else{
+          next()
+        }
+      }else{
+        res.status(401).json({
+          code: 401,
+          message: 'No token provided',
+        })
+      }
+    })
+
+
     new routes.User(this.app, this.connect)
     new routes.Event(this.app, this.connect)
     new routes.Group(this.app, this.connect)
+    new routes.Comment(this.app, this.connect)
 
     this.app.use((req, res) => {
       res.status(404).json({

@@ -1,10 +1,16 @@
 const mongoose = require('mongoose')
 
 const Schema = new mongoose.Schema({
-  name: String,
+  name: {type: String, unique: true},
   description: String,
-  administrator: String,
-  members: [String],
+  administrator: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  members: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   group_type: {type: String, enum: ['public', 'private', 'secret'], default: 'public'},
   post_authorization : {type: Boolean, default: 1},
   events_authorization : {type: Boolean, default: 1},

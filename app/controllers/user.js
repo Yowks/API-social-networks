@@ -43,7 +43,7 @@ class User {
    * Delete
    */
   delete () {
-    this.app.delete('/user/delete/:id', (req, res) => {
+    this.app.delete('/user/:id/delete', (req, res) => {
       try {
         this.UserModel.findByIdAndRemove(req.params.id).then(user => {
           res.status(200).json(user || {})
@@ -66,7 +66,7 @@ class User {
    * Update
    */
   update () {
-    this.app.put('/user/update/:id', (req, res) => {
+    this.app.put('/user/:id/update', (req, res) => {
       try {
         this.UserModel.findByIdAndUpdate(req.params.id, req.body).then(user => {
           res.status(200).json(user || {})
@@ -93,7 +93,7 @@ class User {
       try {
         const userModel = this.UserModel(req.body)
         this.UserModel.find({email: req.body.email}).then(result => {
-          if (!result.length) {
+          if (result.length==0) {
             userModel.save().then(user => {
               res.status(200).json(user || {})
             }).catch(err => {
@@ -107,7 +107,7 @@ class User {
           // Mail existant
           res.status(403).json({
             code: 403,
-            message: 'Mail existant'
+            message: 'Email already exists'
           }) 
         }) 
       } catch (err) {
@@ -123,7 +123,7 @@ class User {
    * List
    */
   search () {
-    this.app.post('/user/search', (req, res) => {
+    this.app.get('/user/search', (req, res) => {
       try {
         const pipe = [{ $limit: req.body.limit || 10 }]
 
