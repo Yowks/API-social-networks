@@ -28,7 +28,7 @@ class Album {
   }
 
   /**
-   * Récupérer tout les albums
+   * Get all the albums
    * @Endpoint : /album
    * @Method : GET
    */
@@ -54,7 +54,7 @@ class Album {
   }
 
   /**
-   * Récupérer les données d'un album
+   * Get an album
    * @Endpoint : /album/{id}
    * @Method : GET
    */
@@ -95,7 +95,7 @@ class Album {
   
 
   /**
-   * Récupérer les images d'un album
+   * Get all the images of an album
    * @Endpoint : /album/{id}/picture
    * @Method : GET
    */
@@ -138,7 +138,7 @@ class Album {
   
 
   /**
-   * Récupérer les commentaires d'une image dans un album
+   * Get all the comments of an image in an album
    * @Endpoint : /album/{id}/picture/{pic_id}/comments
    * @Method : GET
    */
@@ -180,7 +180,7 @@ class Album {
   }
 
   /**
-   * Créer un album
+   * Create an album
    * @Endpoint : /album/create
    * @Method : POST
    */
@@ -225,7 +225,7 @@ class Album {
 
 
   /**
-   * Créer une image dans un album
+   * Create an image in an album
    * @Endpoint : /album/{id}/picture/create
    * @Method : POST
    */
@@ -258,7 +258,7 @@ class Album {
 
 
   /**
-   * Editer un album
+   * Edit an album
    * @Endpoint : /album/{id}/update
    * @Method : PUT
    */
@@ -299,7 +299,7 @@ class Album {
 
 
   /**
-   * Editer une image d'un album
+   * Edit an image from an album
    * @Endpoint : /album/{id}/picture/update
    * @Method : PUT
    */
@@ -340,7 +340,7 @@ class Album {
 
 
   /**
-   * Supprimer un album
+   * Delete an album
    * @Endpoint : /album/{id}/delete
    * @Method : DELETE
    */
@@ -387,7 +387,7 @@ class Album {
 
 
   /**
-   * Supprimer une image d'un album
+   * Delete an image from an album
    * @Endpoint : /album/{id}/picture/delete
    * @Method : DELETE
    */

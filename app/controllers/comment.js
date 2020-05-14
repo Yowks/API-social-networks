@@ -18,7 +18,7 @@ class Comment {
   }
 
   /**
-   * Récupérer tout les commentaires
+   * Get all the comments
    * @Endpoint : /comment
    * @Method : GET
    */
@@ -42,7 +42,7 @@ class Comment {
   }
 
   /**
-  * Récupérer les données d'un commentaire
+  * Get a comment
   * @Endpoint : /comment/{id}
   * @Method : GET
   */
@@ -84,7 +84,7 @@ class Comment {
 
 
   /**
-  * Créer un commentaire
+  * Create a comment
   * @Endpoint : /comment/create
   * @Method : POST
   */
@@ -119,7 +119,7 @@ class Comment {
 
 
   /**
-  * Editer un commentaire
+  * Edit a comment
   * @Endpoint : /comment/{id}/update
   * @Method : PUT
   */
@@ -160,7 +160,7 @@ class Comment {
 
 
   /**
-  * Supprimer un commentaire
+  * Delete a comment
   * @Endpoint : /comment/{id}/delete
   * @Method : DELETE
   */

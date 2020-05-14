@@ -42,7 +42,7 @@ class Event {
   }
 
   /**
-   * Delete
+   * Delete an event
    * @Endpoint : /event/{id}/delete
    * @Method : DELETE
    */
@@ -118,8 +118,10 @@ class Event {
     })
   }
 
-  /**
-   * List
+/**
+   * Show all the events
+   * @Endpoint : /event/search
+   * @Method : GET
    */
   search_event () {
     this.app.get('/event/search', (req, res) => {

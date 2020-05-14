@@ -21,7 +21,7 @@ class Discussion {
   }
 
   /**
-  * Récupérer toutes les discussions
+  * Get all the discussions
   * @Endpoint : /discussion
   * @Method : GET
   */
@@ -46,7 +46,7 @@ class Discussion {
   }
 
   /**
-  * Récupérer les données d'une discussion
+  * Get a discussion
   * @Endpoint : /discussion/{id}
   * @Method : GET
   */
@@ -87,7 +87,7 @@ class Discussion {
   }
 
   /**
-  * Récupérer les messages d'une discussion
+  * Get all the messages of a discussion
   * @Endpoint : /discussion/{id}/message
   * @Method : GET
   */
@@ -130,7 +130,7 @@ class Discussion {
   }
 
   /**
-  * Créer une discussion
+  * Create a discussion
   * @Endpoint : /discussion/create
   * @Method : POST
   */
@@ -172,7 +172,7 @@ class Discussion {
 
 
   /**
-  * Editer une discussion
+  * Update a discussion
   * @Endpoint : /discussion/{id}/update
   * @Method : PUT
   */
@@ -213,7 +213,7 @@ class Discussion {
 
 
   /**
-  * Supprimer une discussion
+  * Delete a discussion
   * @Endpoint : /discussion/{id}/delete
   * @Method : DELETE
   */
