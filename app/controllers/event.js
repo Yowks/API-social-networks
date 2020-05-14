@@ -9,33 +9,33 @@ class Event {
     this.app = app
     this.EventModel = connect.model('Event', EventModel)
 
-    this.create()
-    this.show()
-    this.search()
-    this.delete()
-    this.update()
+    this.create_event()
+    this.show_event()
+    this.search_event()
+    this.delete_event()
+    this.update_event()
   }
 
   /**
-   * Show
-   * @Endpoint : /event/show/{id}
+   * Show an event
+   * @Endpoint : /event/{id}/show
    * @Method : GET
    */
-  show () {
-    this.app.get('/event/show/:id', (req, res) => {
+  show_event () {
+    this.app.get('/event/:id/show', (req, res) => {
       try {
         this.EventModel.findById(req.params.id).populate("administrator, members, staff").then(event => {
           res.status(200).json(event || {})
         }).catch(err => {
           res.status(500).json({
             code: 500,
-            message: err
+            message: "Internal Server Error"
           })
         })
       } catch (err) {
         res.status(500).json({
           code: 500,
-          message: err
+          message: "Internal Server Error"
         })
       }
     })
@@ -46,7 +46,7 @@ class Event {
    * @Endpoint : /event/{id}/delete
    * @Method : DELETE
    */
-  delete () {
+  delete_event () {
     this.app.delete('/event/:id/delete', (req, res) => {
       try {
         this.EventModel.findByIdAndRemove(req.params.id).then(event => {
@@ -54,24 +54,24 @@ class Event {
         }).catch(err => {
           res.status(500).json({
             code: 500,
-            message: err
+            message: "Internal Server Error"
           })
         })
       } catch (err) {
         res.status(500).json({
           code: 500,
-          message: err
+          message: "Internal Server Error"
         })
       }
     })
   }
 
   /**
-   * Update
+   * Update an event
    * @Endpoint : /event/{id}/update
    * @Method : PUT
    */
-  update () {
+  update_event () {
     this.app.put('/event/:id/update', (req, res) => {
       try {
         this.EventModel.findByIdAndUpdate(req.params.id, req.body).then(event => {
@@ -79,24 +79,24 @@ class Event {
         }).catch(err => {
           res.status(500).json({
             code: 500,
-            message: err
+            message: "Internal Server Error"
           })
         })
       } catch (err) {
         res.status(500).json({
           code: 500,
-          message: err
+          message: "Internal Server Error"
         })
       }
     })
   }
 
   /**
-   * Create
+   * Create an event
    * @Endpoint : /event/create
    * @Method : POST
    */
-  create () {
+  create_event () {
     this.app.post('/event/create', (req, res) => {
       try {
         const eventModel = this.EventModel(req.body)
@@ -106,7 +106,7 @@ class Event {
         }).catch(err => {
           res.status(500).json({
             code: 500,
-            message: err
+            message: "Internal Server Error"
           })
         })
       } catch (err) {
@@ -121,7 +121,7 @@ class Event {
   /**
    * List
    */
-  search () {
+  search_event () {
     this.app.get('/event/search', (req, res) => {
       try {
         this.EventModel.find({}).populate("administrator, members, staff").then(event => {
@@ -129,13 +129,13 @@ class Event {
         }).catch(err => {
           res.status(500).json({
             code: 500,
-            message: err
+            message: "Internal Server Error"
           })
         })
       } catch (err) {
         res.status(500).json({
           code: 500,
-          message: err
+          message: "Internal Server Error"
         })
       }
     })

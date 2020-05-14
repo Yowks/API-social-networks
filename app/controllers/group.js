@@ -9,64 +9,70 @@ class Group {
     this.app = app
     this.GroupModel = connect.model('Group', GroupModel)
 
-    this.create()
-    this.show()
-    this.search()
-    this.delete()
-    this.update()
-    this.showMembers();
+    this.create_group()
+    this.show_group()
+    this.search_group()
+    this.delete_group()
+    this.update_group()
+    this.show_group_members();
   }
 
   /**
-   * Show
-   */
-  show () {
-    this.app.get('/group/show/:id', (req, res) => {
+	* Get a group
+	* @Endpoint : /group/{id}/show
+	* @Method : GET
+	*/
+  show_group () {
+    this.app.get('/group/:id/show', (req, res) => {
       try {
         this.GroupModel.findById(req.params.id).populate("administrator, members").then(group => {
           res.status(200).json(group || {})
         }).catch(err => {
           res.status(500).json({
             code: 500,
-            message: err
+            message: "Internal Server Error"
           })
         })
       } catch (err) {
         res.status(500).json({
           code: 500,
-          message: err
+          message: "Internal Server Error"
         })
       }
     })
   }
 
   /**
-   * Show All Members
-   */
-  showMembers () {
-    this.app.get('/group/show/:id/members', (req, res) => {
+	* Get all members of a group
+	* @Endpoint : /group/{id}/show/members
+	* @Method : GET
+	*/
+  show_group_members () {
+    this.app.get('/group/:id/show/members', (req, res) => {
       try {
         this.GroupModel.findById(req.params.id).populate("members").select('members').then(group => {
           res.status(200).json(group || {})
         }).catch(err => {
           res.status(500).json({
             code: 500,
-            message: err
+            message: "Internal Server Error"
           })
         })
       } catch (err) {
         res.status(500).json({
           code: 500,
-          message: err
+          message: "Internal Server Error"
         })
       }
     })
   }
 
   /**
-   * Delete
-   */
-  delete () {
+	* Delete a group
+	* @Endpoint : /group/{id}/delete
+	* @Method : DELETE
+	*/
+  delete_group () {
     this.app.delete('/group/:id/delete', (req, res) => {
       try {
         this.GroupModel.findByIdAndRemove(req.params.id).then(group => {
@@ -74,22 +80,24 @@ class Group {
         }).catch(err => {
           res.status(500).json({
             code: 500,
-            message: err
+            message: "Internal Server Error"
           })
         })
       } catch (err) {
         res.status(500).json({
           code: 500,
-          message: err
+          message: "Internal Server Error"
         })
       }
     })
   }
 
   /**
-   * Update
-   */
-  update () {
+	* Update a group
+	* @Endpoint : /group/{id}/update
+	* @Method : PUT
+	*/
+  update_group () {
     this.app.put('/group/:id/update', (req, res) => {
       try {
         const groupModel = this.GroupModel(req.body)
@@ -155,26 +163,29 @@ class Group {
       }catch (err) {
         res.status(500).json({
           code: 500,
-          message: err
+          message: "Internal Server Error"
         })
       }
     })
   }
 
   /**
-   * Create
-   */
-  create () {
+	* Create a group
+	* @Endpoint : /group/create
+	* @Method : POST
+	*/
+  create_group () {
     this.app.post('/group/create', (req, res) => {
       try {
         const groupModel = this.GroupModel(req.body)
           groupModel.members=groupModel.administrator
+
           groupModel.save().then(group => {
             res.status(200).json(group || {})
           }).catch(err => {
             res.status(500).json({
               code: 500,
-              message: err
+              message: "Internal Server Error"
             })
           })
           return
@@ -189,9 +200,11 @@ class Group {
   }
 
   /**
-   * List
-   */
-  search () {
+	* Get all groups
+	* @Endpoint : /group/search
+	* @Method : GET
+	*/
+  search_group () {
     this.app.get('/group/search', (req, res) => {
       try {
         /*const pipe = [{ $limit: req.body.limit || 10 }]
@@ -211,7 +224,7 @@ class Group {
       } catch (err) {
         res.status(500).json({
           code: 500,
-          message: err
+          message: "Internal Server Error"
         })
       }
     })

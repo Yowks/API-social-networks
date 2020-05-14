@@ -96,11 +96,11 @@ class Album {
 
   /**
    * Récupérer les images d'un album
-   * @Endpoint : /album/{id}/pictures
+   * @Endpoint : /album/{id}/picture
    * @Method : GET
    */
   get_album_pictures() {
-    this.app.get('/album/:id/pictures', (req, res) => {
+    this.app.get('/album/:id/picture', (req, res) => {
       try {
         this.AlbumModel.findById(req.params.id).populate('event_ref').then(albums => {
           if(albums){
@@ -139,11 +139,11 @@ class Album {
 
   /**
    * Récupérer les commentaires d'une image dans un album
-   * @Endpoint : /album/{id}/pictures/{pic_id}/comments
+   * @Endpoint : /album/{id}/picture/{pic_id}/comments
    * @Method : GET
    */
   get_album_pictures_comments() {
-    this.app.get('/album/:id/pictures/:pic_id/comments', (req, res) => {
+    this.app.get('/album/:id/picture/:pic_id/comments', (req, res) => {
       try {
         this.AlbumPicturesModel.find({"album_ref": req.params.id}).populate('event_ref').then(picture => {
           if(picture){
@@ -226,11 +226,11 @@ class Album {
 
   /**
    * Créer une image dans un album
-   * @Endpoint : /album/{id}/pictures/create
+   * @Endpoint : /album/{id}/picture/create
    * @Method : POST
    */
   create_album_picture() {
-    this.app.post('/album/:id/pictures/create', (req, res) => {
+    this.app.post('/album/:id/picture/create', (req, res) => {
       try {
         const albumPicturesModel = new this.AlbumPicturesModel(req.body)
         albumPicturesModel.save().then(album => {
@@ -300,11 +300,11 @@ class Album {
 
   /**
    * Editer une image d'un album
-   * @Endpoint : /album/{id}/pictures/update
+   * @Endpoint : /album/{id}/picture/update
    * @Method : PUT
    */
   update_album_picture() {
-    this.app.put('/album/:id/pictures/update', (req, res) => {
+    this.app.put('/album/:id/picture/update', (req, res) => {
       try {
         this.AlbumPicturesModel.findByIdAndUpdate(req.params.id, req.body).populate('album_ref, author_id').then(picture => {
           if(picture){
@@ -388,11 +388,11 @@ class Album {
 
   /**
    * Supprimer une image d'un album
-   * @Endpoint : /album/{id}/pictures/delete
+   * @Endpoint : /album/{id}/picture/delete
    * @Method : DELETE
    */
   delete_album_picture() {
-    this.app.delete('/album/:id/pictures/delete', (req, res) => {
+    this.app.delete('/album/:id/picture/delete', (req, res) => {
       try {
         this.AlbumPicturesModel.findByIdAndDelete(req.params.id).populate('album_ref, author_id').then(picture => {
           if(picture){

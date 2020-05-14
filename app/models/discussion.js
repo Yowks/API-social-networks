@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const Schema = new mongoose.Schema({
-    type: { type: String, required: true },
+    type: {type: String, enum: ['group_message', 'event_message', 'photo_message'], required: true},
     date_creation: { type: Date, default: Date.now, required: true },
     enable: { type: Boolean, default: 1, required: true }
 }, {

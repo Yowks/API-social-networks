@@ -21,7 +21,7 @@ class Message {
 	}
 
 	/**
-	* Récupérer tout les messages
+	* Get All the messages
 	* @Endpoint : /message
 	* @Method : GET
 	*/
@@ -47,7 +47,7 @@ class Message {
 
 
 	/**
-	* Récupérer les données d'un message
+	* Get a message
 	* @Endpoint : /message/{id}
 	* @Method : GET
 	*/
@@ -90,7 +90,7 @@ class Message {
 
 
 	/**
-	* Récupérer les commentaires d'un messages
+	* Get all the comments of a message
 	* @Endpoint : /message/{id}/comment
 	* @Method : GET
 	*/
@@ -136,7 +136,7 @@ class Message {
 
 
 	/**
-	* Créer un message
+	* Create a message
 	* @Endpoint : /message/create
 	* @Method : POST
 	*/
@@ -169,7 +169,7 @@ class Message {
 
 
 	/**
-	* Editer un message
+	* Update a message
 	* @Endpoint : /message/{id}/update
 	* @Method : PUT
 	*/
@@ -210,7 +210,7 @@ class Message {
 
 
 	/**
-	* Supprimer un message
+	* Delete a message
 	* @Endpoint : /message/{id}/delete
 	* @Method : DELETE
 	*/

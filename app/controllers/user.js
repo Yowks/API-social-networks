@@ -9,40 +9,44 @@ class User {
     this.app = app
     this.UserModel = connect.model('User', UserModel)
 
-    this.create()
-    this.show()
-    this.search()
-    this.delete()
-    this.update()
+    this.create_user()
+    this.show_user()
+    this.search_user()
+    this.delete_user()
+    this.update_user()
   }
 
   /**
-   * Show
-   */
-  show () {
-    this.app.get('/user/show/:id', (req, res) => {
+	* Get an user
+	* @Endpoint : /user/{id}/show
+	* @Method : GET
+	*/
+  show_user () {
+    this.app.get('/user/:id/show', (req, res) => {
       try {
         this.UserModel.findById(req.params.id).then(user => {
           res.status(200).json(user || {})
         }).catch(err => {
           res.status(500).json({
             code: 500,
-            message: err
+            message: "Internal Server Error"
           })
         })
       } catch (err) {
         res.status(500).json({
           code: 500,
-          message: err
+          message: "Internal Server Error"
         })
       }
     })
   }
 
   /**
-   * Delete
-   */
-  delete () {
+	* Delete an user
+	* @Endpoint : /user/{id}/delete
+	* @Method : DELETE
+	*/
+  delete_user () {
     this.app.delete('/user/:id/delete', (req, res) => {
       try {
         this.UserModel.findByIdAndRemove(req.params.id).then(user => {
@@ -50,22 +54,24 @@ class User {
         }).catch(err => {
           res.status(500).json({
             code: 500,
-            message: err
+            message: "Internal Server Error"
           })
         })
       } catch (err) {
         res.status(500).json({
           code: 500,
-          message: err
+          message: "Internal Server Error"
         })
       }
     })
   }
 
   /**
-   * Update
-   */
-  update () {
+	* Update an user
+	* @Endpoint : /user/{id}/update
+	* @Method : PUT
+	*/
+  update_user () {
     this.app.put('/user/:id/update', (req, res) => {
       try {
         this.UserModel.findByIdAndUpdate(req.params.id, req.body).then(user => {
@@ -73,22 +79,24 @@ class User {
         }).catch(err => {
           res.status(500).json({
             code: 500,
-            message: err
+            message: "Internal Server Error"
           })
         })
       } catch (err) {
         res.status(500).json({
           code: 500,
-          message: err
+          message: "Internal Server Error"
         })
       }
     })
   }
 
   /**
-   * Create
-   */
-  create () {
+	* Create an user
+	* @Endpoint : /user/{id}/update
+	* @Method : POST
+	*/
+  create_user () {
     this.app.post('/user/create', (req, res) => {
       try {
         const userModel = this.UserModel(req.body)
@@ -99,7 +107,7 @@ class User {
             }).catch(err => {
               res.status(500).json({
                 code: 500,
-                message: err
+                message: "Internal Server Error"
               })
             })
             return
@@ -120,9 +128,11 @@ class User {
   }
 
   /**
-   * List
-   */
-  search () {
+	* Get all users
+	* @Endpoint : /user/search
+	* @Method : GET
+	*/
+  search_user () {
     this.app.get('/user/search', (req, res) => {
       try {
         const pipe = [{ $limit: req.body.limit || 10 }]
@@ -136,13 +146,13 @@ class User {
         }).catch(err => {
           res.status(500).json({
             code: 500,
-            message: err
+            message: "Internal Server Error"
           })
         })
       } catch (err) {
         res.status(500).json({
           code: 500,
-          message: err
+          message: "Internal Server Error"
         })
       }
     })
