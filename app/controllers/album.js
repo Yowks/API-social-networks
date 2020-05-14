@@ -233,6 +233,7 @@ class Album {
     this.app.post('/album/:id/picture/create', (req, res) => {
       try {
         const albumPicturesModel = new this.AlbumPicturesModel(req.body)
+
         albumPicturesModel.save().then(album => {
           res.status(201).json({ 
             album: album, 

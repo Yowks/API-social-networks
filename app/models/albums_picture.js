@@ -8,11 +8,6 @@ const Schema = new mongoose.Schema({
 	},
 	path: {type: String, required: true},
 	title: {type: String, required: true},
-	author_id: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User',
-		required: true
-	},
 	date_creation: { type: Date, default: Date.now },
 	enable: { type: Boolean, default: 1 }
 }, {
