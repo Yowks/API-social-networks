@@ -13,7 +13,8 @@ const Schema = new mongoose.Schema({
     required: true
   },
   title: {type: String, required: true},
-  date_creation: { type: Date, default: Date.now, immutable: true, required: true },
+  date_creation: { type: Date, default: Date.now, required: true },
+  comment: { type: Boolean, default: 1, required: true},
   enable: { type: Boolean, default: 1, required: true}
 }, {
   collection: 'albums',

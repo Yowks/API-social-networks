@@ -1,10 +1,12 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+
 const cors = require('cors')
 
 const routes = require('./routes.js')
 
+mongoose.set('useFindAndModify', false);
 /**
  * Server
  * @Class
@@ -20,20 +22,21 @@ class Server {
    */
   dbConnect () {
     // const host = 'mongodb://localhost:27017/social-networks' #Local connection
+    const opts = { useNewUrlParser: true, useUnifiedTopology: true };
     const host = 'mongodb+srv://root:test@cluster0-ijrao.gcp.mongodb.net/test?retryWrites=true&w=majority' // Atlas connection
-    const connect = mongoose.createConnection(host)
+    const connect = mongoose.createConnection(host, opts)
 
     connect.on('error', (err) => {
       setTimeout(() => {
         console.error(`[ERROR] api dbConnect() -> ${err}`)
-        this.connect = this.dbConnect(host)
+        this.connect = this.dbConnect(host, opts)
       }, 5000)
     })
 
     connect.on('disconnected', () => {
       setTimeout(() => {
         console.log('[DISCONNECTED] api dbConnect() -> mongodb disconnected')
-        this.connect = this.dbConnect(host)
+        this.connect = this.dbConnect(host, opts)
       }, 5000)
     })
 

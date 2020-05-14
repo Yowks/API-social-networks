@@ -1,4 +1,5 @@
 const CommentModel = require('../models/comment')
+const AlbumModel = require('../models/album')
 
 /**
  * Comment
@@ -9,6 +10,8 @@ class Comment {
   constructor(app, connect) {
     this.app = app
     this.CommentModel = connect.model('Comment', CommentModel)
+    this.AlbumModel = connect.model('Album', AlbumModel)
+
 
     this.get_comments()
     this.get_comment()
@@ -26,10 +29,8 @@ class Comment {
     this.app.get('/comment', (req, res) => {
       try {
         this.CommentModel.find({}, function(err, comments) {
-          res.status(200).json({ 
-          comments: comments, 
-          })
-        }).populate("author_id, ref")
+          res.status(200).json({ comments })
+        });
       } catch (err) {
         res.status(500).json({ 
           error: { 
@@ -49,11 +50,9 @@ class Comment {
   get_comment() {
     this.app.get('/comment/:id', (req, res) => {
       try {
-        this.CommentModel.findById(req.params.id).populate("author_id").then(comment => {
+        this.CommentModel.findById(req.params.id).populate("author_id").then(comment => { //To be fixed
           if(comment){
-            res.status(200).json({ 
-            comment: comment
-            })
+            res.status(200).json({ comment })
           }else{
             res.status(400).json({ 
               error: {
@@ -92,20 +91,29 @@ class Comment {
     this.app.post('/comment/create', (req, res) => {
       try {
         const commentModel = new this.CommentModel(req.body)
-
-        commentModel.save().then(comment => {
-          res.status(201).json({ 
-            comment: comment 
-          })
-        }).catch(err => {
-          res.status(400).json({ 
-            error: {
+        this.AlbumModel.findById(req.body.ref).then(able => {
+          if(able.comment){ // Able to comment the album
+            commentModel.save().then(comment => {
+              res.status(201).json({ 
+                comment: comment 
+              })
+            }).catch(err => {
+              res.status(500).json({ 
+                error: { 
+                  status: 500, 
+                  message: "Internal Server Error"
+                } 
+              })
+            })
+          }else{ // If not error
+            res.status(400).json({ 
+              error: {
               status: 400,
-              message: "error"
-            } 
-          }) 
+              message: "Can't comment this"
+              } 
+            })  
+          }
         })
-
       } catch {
         res.status(500).json({ 
           error: { 
