@@ -19,7 +19,6 @@ class Shopping {
 
 		this.create_shopping_item()
 		this.get_shopping_item()
-		this.get_shoppers_item()
 		this.update_shopping_item()
 		this.delete_shopping_item()
 
