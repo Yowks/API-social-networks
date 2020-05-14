@@ -24,7 +24,8 @@ const Schema = new mongoose.Schema({
     ref: 'User',
     required: true
   }],
-  privacy: {type: Boolean, required: true},
+  privacy: {type: Boolean, default: true },
+  shopping: {type: Boolean, default: true },
   image_event: {
     type: String,
     default: 'https://pbs.twimg.com/profile_images/1126137112825335808/L5WvNz8W_400x400.jpg'

@@ -6,7 +6,8 @@ const cors = require('cors')
 
 const routes = require('./routes.js')
 
-mongoose.set('useFindAndModify', false);
+mongoose.set('useFindAndModify', false)
+
 /**
  * Server
  * @Class
@@ -22,7 +23,7 @@ class Server {
    */
   dbConnect () {
     // const host = 'mongodb://localhost:27017/social-networks' #Local connection
-    const opts = { useNewUrlParser: true, useUnifiedTopology: true };
+    const opts = { useNewUrlParser: true, useUnifiedTopology: true }
     const host = 'mongodb+srv://root:test@cluster0-ijrao.gcp.mongodb.net/test?retryWrites=true&w=majority' // Atlas connection
     const connect = mongoose.createConnection(host, opts)
 
@@ -63,25 +64,23 @@ class Server {
    * Routes
    */
   routes () {
-
     this.app.use((req, res, next) => {
-      if(req.headers['token']){
-        if(req.headers['token'] !== "e2a5ze515a1z51e51"){
+      if (req.headers['token']) {
+        if (req.headers['token'] !== 'e2a5ze515a1z51e51') {
           res.status(401).json({
             code: 401,
-            message: 'Failed to authenticate token',
+            message: 'Failed to authenticate token'
           })
-        }else{
+        } else {
           next()
         }
-      }else{
+      } else {
         res.status(401).json({
           code: 401,
-          message: 'No token provided',
+          message: 'No token provided'
         })
       }
     })
-
 
     new routes.User(this.app, this.connect)
     new routes.Event(this.app, this.connect)
@@ -90,6 +89,7 @@ class Server {
     new routes.Message(this.app, this.connect)
     new routes.Discussion(this.app, this.connect)
     new routes.Album(this.app, this.connect)
+    new routes.Shop(this.app, this.connect)
 
     this.app.use((req, res) => {
       res.status(404).json({

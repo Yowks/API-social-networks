@@ -14,10 +14,7 @@ const Schema = new mongoose.Schema({
         immutable: true
     },
     content: { type: String, required: true },
-    date_creation: { type: Date, default: Date.now, required: true },
-    content_modified: { type: String, default: null },
-    date_modified: { type: Date, default: null },
-    enable: { type: Boolean, default: 1, required: true }
+    creation_date: { type: Date, default: Date.now, required: true },
 }, {
     collection: 'messages',
     minimize: false,

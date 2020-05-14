@@ -50,7 +50,10 @@ class User {
     this.app.delete('/user/:id/delete', (req, res) => {
       try {
         this.UserModel.findByIdAndRemove(req.params.id).then(user => {
-          res.status(200).json(user || {})
+          res.status(200).json({
+            code: 200,
+            message: "User succesfully deleted"
+          })
         }).catch(err => {
           res.status(500).json({
             code: 500,

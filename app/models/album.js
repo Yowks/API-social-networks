@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const Schema = new mongoose.Schema({
-  event_ref: {
+  event_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Event',
     required: true,
@@ -13,9 +13,8 @@ const Schema = new mongoose.Schema({
     required: true
   },
   title: {type: String, required: true},
-  date_creation: { type: Date, default: Date.now, required: true },
+  creation_date: { type: Date, default: Date.now, required: true },
   comment: { type: Boolean, default: 1, required: true},
-  enable: { type: Boolean, default: 1, required: true}
 }, {
   collection: 'albums',
   minimize: false,

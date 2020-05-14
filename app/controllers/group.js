@@ -78,7 +78,10 @@ class Group {
     this.app.delete('/group/:id/delete', (req, res) => {
       try {
         this.GroupModel.findByIdAndRemove(req.params.id).then(group => {
-          res.status(200).json(group || {})
+          res.status(200).json({
+            code: 200,
+            message: "Group succesfully deleted"
+          })
         }).catch(err => {
           res.status(500).json({
             code: 500,

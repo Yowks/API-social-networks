@@ -6,11 +6,6 @@ const Schema = new mongoose.Schema({
   email: {type: String, unique:true, required: true},
   password: {type: String,required: true},
   age: {type: Number,required: true},
-  city: {type: String},
-  city_code: {type: Number},
-  street_number: {type: String},
-  street_type: {type: String},
-  street_name: {type: String},
   phone: {type: String,required: true},
   image_profil: {
     type: String,

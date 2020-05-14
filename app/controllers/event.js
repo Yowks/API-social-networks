@@ -51,7 +51,11 @@ class Event {
     this.app.delete('/event/:id/delete', (req, res) => {
       try {
         this.EventModel.findByIdAndRemove(req.params.id).then(event => {
-          res.status(200).json(event || {})
+          res.status(200).json({
+              code: 200,
+              message: "Event succesfully deleted"
+            }
+          )
         }).catch(err => {
           res.status(500).json({
             code: 500,

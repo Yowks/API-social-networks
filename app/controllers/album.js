@@ -41,7 +41,7 @@ class Album {
               albums: albums
             }
           )
-        }).populate('event_ref');
+        }).populate('event_id');
       } catch (err) {
         res.status(500).json({ 
           error: { 
@@ -61,7 +61,7 @@ class Album {
   get_album() {
     this.app.get('/album/:id', (req, res) => {
       try {
-        this.AlbumModel.findById(req.params.id).populate('event_ref').then(album => {
+        this.AlbumModel.findById(req.params.id).populate('event_id').then(album => {
           if(album){
             res.status(200).json({ 
                 album: album
@@ -102,9 +102,9 @@ class Album {
   get_album_pictures() {
     this.app.get('/album/:id/picture', (req, res) => {
       try {
-        this.AlbumModel.findById(req.params.id).populate('event_ref').then(albums => {
+        this.AlbumModel.findById(req.params.id).populate('event_id').then(albums => {
           if(albums){
-            this.AlbumPicturesModel.find({"album_ref": req.params.id}).populate('album_ref, author_id').then(pictures => {
+            this.AlbumPicturesModel.find({"album_id": req.params.id}).populate('album_id, author_id').then(pictures => {
               res.status(200).json({ 
                 pictures: pictures
               })
@@ -145,14 +145,14 @@ class Album {
   get_album_pictures_comments() {
     this.app.get('/album/:id/picture/:pic_id/comment', (req, res) => {
       try {
-        this.AlbumPicturesModel.find({"album_ref": req.params.id}).populate('event_ref').then(picture => {
-          if(picture){
-            this.CommentModel.find({"ref": req.params.pic_id, "type": "album"}).populate('author_id').then(comments => {
+        this.AlbumPicturesModel.find({"album_id": req.params.id}).populate('event_id').then(picture => {
+          if (picture) {
+            this.CommentModel.find({"id": req.params.pic_id, "type": "album"}).populate('author_id').then(comments => {
               res.status(200).json({ 
                 comments: comments
               })
             });
-          }else{
+          } else {
             res.status(400).json({ 
               error: {
                 status: 400,
@@ -211,7 +211,7 @@ class Album {
               }) 
             })
           }
-        }).populate('event_ref'); 
+        }).populate('event_id'); 
       } catch (err) {
         res.status(500).json({ 
           error: { 
@@ -266,7 +266,7 @@ class Album {
   update_album() {
     this.app.put('/album/:id/update', (req, res) => {
       try {
-        this.AlbumModel.findByIdAndUpdate(req.params.id, req.body).populate('event_ref').then(album => {
+        this.AlbumModel.findByIdAndUpdate(req.params.id, req.body).populate('event_id').then(album => {
           if(album){
             res.status(201).json({ 
                 album: album
@@ -305,9 +305,9 @@ class Album {
    * @Method : PUT
    */
   update_album_picture() {
-    this.app.put('/album/:id/picture/update', (req, res) => {
+    this.app.put('/album/picture/:id/update', (req, res) => {
       try {
-        this.AlbumPicturesModel.findByIdAndUpdate(req.params.id, req.body).populate('album_ref, author_id').then(picture => {
+        this.AlbumPicturesModel.findByIdAndUpdate(req.params.id, req.body).populate('album_id, author_id').then(picture => {
           if(picture){
             res.status(201).json({ 
               picture: picture
@@ -348,7 +348,7 @@ class Album {
   delete_album() {
     this.app.delete('/album/:id/delete', (req, res) => {
       try {
-        this.AlbumModel.findByIdAndDelete(req.params.id).populate('event_ref').then(album => {
+        this.AlbumModel.findByIdAndDelete(req.params.id).populate('event_id').then(album => {
           if(album){
             res.status(200).json({ 
               success: {
@@ -395,7 +395,7 @@ class Album {
   delete_album_picture() {
     this.app.delete('/album/:id/picture/delete', (req, res) => {
       try {
-        this.AlbumPicturesModel.findByIdAndDelete(req.params.id).populate('album_ref, author_id').then(picture => {
+        this.AlbumPicturesModel.findByIdAndDelete(req.params.id).populate('album_id, author_id').then(picture => {
           if(picture){
             res.status(200).json({ 
               success: {

@@ -63,12 +63,12 @@ DB : Cluster connection to Atlas
 
 | Method | Endpoint            | Usage                              | Return        |
 |--------|---------------------|------------------------------------|---------------|
-| GET    | `/discussions` | Get all discussions | discussions |
-| GET    | `/discussions/{id}` | Get one discussion | discussion |
-| POST    | `/discussions/create` | Create a discussion | discussion |
-| PUT    | `/discussions/{id}/update` | Edit a discussion | discussion |
-| Delete    | `/discussions/{id}/delete` | Delete a discussion | boolean |
-| GET    | `/discussions/{id}/message` | Get all messages from a discussion | messages |
+| GET    | `/discussion` | Get all discussions | discussions |
+| GET    | `/discussion/{id}` | Get one discussion | discussion |
+| POST    | `/discussion/create` | Create a discussion | discussion |
+| PUT    | `/discussion/{id}/update` | Edit a discussion | discussion |
+| Delete    | `/discussion/{id}/delete` | Delete a discussion | boolean |
+| GET    | `/discussion/{id}/message` | Get all messages from a discussion | messages |
 
 
 ### Messages :

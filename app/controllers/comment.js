@@ -91,8 +91,9 @@ class Comment {
     this.app.post('/comment/create', (req, res) => {
       try {
         const commentModel = new this.CommentModel(req.body)
-        this.AlbumModel.findById(req.body.ref).then(able => {
-          if(able.comment){ // Able to comment the album
+        this.AlbumModel.findById(req.body.link_id).then(able => {
+          console.log('this is ' + able)
+          if (able.comment){ // Able to comment the album
             commentModel.save().then(comment => {
               res.status(201).json({ 
                 comment: comment 
@@ -101,11 +102,11 @@ class Comment {
               res.status(500).json({ 
                 error: { 
                   status: 500, 
-                  message: "Internal Server Error"
+                  message: err + "Internal Server Error"
                 } 
               })
             })
-          }else{ // If not error
+          } else { // If not error
             res.status(400).json({ 
               error: {
               status: 400,
