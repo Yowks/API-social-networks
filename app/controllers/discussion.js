@@ -137,8 +137,8 @@ class Discussion {
   create_discussion() {
     this.app.post('/discussion/create', (req, res) => {
       try {
-        const discussionModel = new this.DiscussionModel(req.body)
-        if(req.body.type && (req.body.type == "group" || req.body.type == 'event')){
+        const discussionModel = new this.DiscussionModel(req.body)  
+        if(req.body.type){
           discussionModel.save().then(discussion => {
             res.status(201).json({ 
               discussion: discussion, 
