@@ -1,4 +1,5 @@
 const GroupModel = require('../models/group.js')
+const UserModel = require('../models/user.js')
 
 /**
  * Group
@@ -8,6 +9,7 @@ class Group {
   constructor (app, connect) {
     this.app = app
     this.GroupModel = connect.model('Group', GroupModel)
+    this.UserModel = connect.model('User', UserModel)
 
     this.create_group()
     this.show_group()

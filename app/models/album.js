@@ -4,7 +4,8 @@ const Schema = new mongoose.Schema({
   event_ref: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Event',
-    required: true
+    required: true,
+    immutable: true
   },
   author : {
     type: mongoose.Schema.Types.ObjectId,
@@ -12,7 +13,7 @@ const Schema = new mongoose.Schema({
     required: true
   },
   title: {type: String, required: true},
-  date_creation: { type: Date, default: Date.now, required: true },
+  date_creation: { type: Date, default: Date.now, immutable: true, required: true },
   enable: { type: Boolean, default: 1, required: true}
 }, {
   collection: 'albums',
