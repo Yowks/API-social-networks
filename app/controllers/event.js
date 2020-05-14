@@ -1,5 +1,5 @@
 const EventModel = require('../models/event.js')
-
+const UserModel = require('../models/user.js')
 /**
  * Event
  * @class
@@ -8,6 +8,7 @@ class Event {
   constructor (app, connect) {
     this.app = app
     this.EventModel = connect.model('Event', EventModel)
+    this.UserModel = connect.model('User', UserModel)
 
     this.create_event()
     this.show_event()

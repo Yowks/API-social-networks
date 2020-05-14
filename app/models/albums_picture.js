@@ -8,7 +8,7 @@ const Schema = new mongoose.Schema({
 	},
 	path: {type: String, required: true},
 	title: {type: String, required: true},
-	date_creation: { type: Date, default: Date.now },
+	date_creation: { type: Date, default: Date.now, immutable: true },
 	enable: { type: Boolean, default: 1 }
 }, {
 	collection: 'albums_pictures',

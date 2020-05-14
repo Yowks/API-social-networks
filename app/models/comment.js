@@ -1,14 +1,14 @@
 const mongoose = require('mongoose')
 
 const Schema = new mongoose.Schema({
-    type: {type: String, required: true},
+    type: {type: String, required: true, immutable: true},
     author_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    ref: String,
+    ref: {type: String, required: true, immutable: true},
     content: String,
-    date_creation: { type: Date, default: Date.now },
+    date_creation: { type: Date, default: Date.now, immutable: true },
     content_modified: { type: String, default: null },
     date_modified: { type: Date, default: null },
     enable: { type: Boolean, default: 1 }
