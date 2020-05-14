@@ -139,11 +139,11 @@ class Album {
 
   /**
    * Get all the comments of an image in an album
-   * @Endpoint : /album/{id}/picture/{pic_id}/comments
+   * @Endpoint : /album/{id}/picture/{pic_id}/comment
    * @Method : GET
    */
   get_album_pictures_comments() {
-    this.app.get('/album/:id/picture/:pic_id/comments', (req, res) => {
+    this.app.get('/album/:id/picture/:pic_id/comment', (req, res) => {
       try {
         this.AlbumPicturesModel.find({"album_ref": req.params.id}).populate('event_ref').then(picture => {
           if(picture){

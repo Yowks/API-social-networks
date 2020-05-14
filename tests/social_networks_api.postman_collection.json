@@ -989,7 +989,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/album/5ebcfe5a29f547283c4116aa/pictures/:pic_id/comments",
+							"raw": "http://localhost:3000/album/5ebcfe5a29f547283c4116aa/picture/5ebd0be809d4b54b2c3f7217/comment",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -998,15 +998,9 @@
 							"path": [
 								"album",
 								"5ebcfe5a29f547283c4116aa",
-								"pictures",
-								":pic_id",
-								"comments"
-							],
-							"variable": [
-								{
-									"key": "pic_id",
-									"value": "5eaedb4adab36bc314462f1a"
-								}
+								"picture",
+								"5ebd0be809d4b54b2c3f7217",
+								"comment"
 							]
 						},
 						"description": "Get all comments of a picture with :id album and :id picture"
