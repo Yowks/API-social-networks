@@ -7,7 +7,7 @@ const Schema = new mongoose.Schema({
         required: true,
         immutable: true
     },
-    discussion_ref: {
+    discussion_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Discussion',
         required: true,

@@ -313,46 +313,6 @@ class Shopping {
 			}
 		})
 	}
-
-
-	/**
-	 * Supprime un utilisateur sur un item d'une shopping list
-	 * @Endpoint : /shoppings_item/{id}/shoppers/remove
-	 * @Method : POST
-	 */
-	remove_shopper() {
-		this.app.post('/shoppings_item/:id/shoppers/remove', (req, res) => {
-			try {
-				this.ShoppersModel.deleteOne({"item_id": req.params.id}).then(shopper_item => {
-					if(shopper_item){
-						res.status(201).json({ shopper_item })
-					}else{
-						res.status(400).json({ 
-							error: {
-								status: 400,
-								message: "invalid id"
-							} 
-						})  
-					}
-				}).catch(err => {
-					res.status(400).json({ 
-						error: {
-							status: 400,
-							message: "invalid id"
-						} 
-					}) 
-			});
-
-			} catch {
-				res.status(500).json({ 
-					error: { 
-						status: 500, 
-						message: "Internal Server Error"
-					} 
-				})
-			}
-		})
-	}
 }
 
 module.exports = Shopping

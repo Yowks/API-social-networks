@@ -97,7 +97,7 @@ class Discussion {
         this.DiscussionModel.findById(req.params.id).then(discussion => {
           if(discussion){
 
-            this.MessageModel.find({"ref": req.params.id}).then(messages => {
+            this.MessageModel.find({"discussion_id": req.params.id}).then(messages => {
               res.status(200).json({ 
                 messages: messages 
               })

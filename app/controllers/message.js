@@ -99,7 +99,7 @@ class Message {
 			try {
 				this.MessageModel.findById(req.params.id).populate('author_id, discussion_ref').then(message => {
 					if(message){
-						this.CommentModel.find({"ref": req.params.id, "type": "group_message"}).populate('author_id').then(comments => {
+						this.CommentModel.find({"discussion_id": req.params.id, "type": "group_message"}).populate('author_id').then(comments => {
 							res.status(200).json({ 
 								comments: comments 
 							})

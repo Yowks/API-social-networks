@@ -393,7 +393,7 @@ class Album {
    * @Method : DELETE
    */
   delete_album_picture() {
-    this.app.delete('/album/:id/picture/delete', (req, res) => {
+    this.app.delete('/album/picture/:id/delete', (req, res) => {
       try {
         this.AlbumPicturesModel.findByIdAndDelete(req.params.id).populate('album_id, author_id').then(picture => {
           if(picture){
