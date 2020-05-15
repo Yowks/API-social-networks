@@ -137,5 +137,5 @@ DB : Cluster connection to Atlas
 | POST    | `/shoppings/{id}/items/create` | Create an item in a shopping list | item |
 | POST    | `/shoppings_item/{id}/shoppers/define/{user_id}` | Define an user on an item | item |
 | PUT    | `/shoppings_item/{id}/update` | Edit an item from a shopping list | item |
-| DELETE    | `/shoppings_item/{id}/delete` | Delete an item from a shopping list | item |
+| DELETE    | `/shoppings_item/{id}/delete` | Delete an item from a shopping list | boolean |
 | DELETE    | `/shoppings/{id}/delete` | Delete a shopping list | boolean |
