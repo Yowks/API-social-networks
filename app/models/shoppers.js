@@ -6,14 +6,7 @@ const Schema = new mongoose.Schema({
 		ref: 'Event',
 		required: true
 	},
-	item_id: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'ShoppingItem',
-		required: true,
-		unique: true
-	},
-	hour: { type: Date, required: true },
-	quantity: { type: Number, required: true, min: 0 },
+	enable: { type: Boolean, required:true, default:true }
 }, {
 	collection: 'shoppers',
 	minimize: false,

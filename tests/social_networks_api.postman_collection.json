@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "84ab5857-d5c3-4afa-b669-9138b9930300",
 		"name": "social_networks_api",
+		"description": "This is an event API Rest - Facebook like.\n\nShe has for objective to :\n\n    be secured in every endpoint when it's necessary\n\n    define specific routes for data use \n\nTo realise this we need to:\n\n    install and configure mongodb\n\n    create a model for each mongodb collection\n\n    create a postman collection with all the saved requests\n\n    create a API documentation\n\n\n**# Endpoints**\n###### Base URL: http://localhost:3000/\n\n**# Database**\n###### DB : Cluster connection to Atlas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -9,12 +10,12 @@
 			"name": "Users",
 			"item": [
 				{
-					"name": "GET",
+					"name": "Search",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/5ebbfbccdab9d8242489dc6a/show",
+							"raw": "http://localhost:3000/user/search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -22,11 +23,32 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"5ebbfbccdab9d8242489dc6a",
+								"search"
+							]
+						},
+						"description": "### [GET] Get All Users \nGet all the users informations\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | No               |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : POST → user/search\n\n#### Response :\n```javascript\n{\n   {\n    '_id': Object_ID,\n    'first_name': String\n    'last_name': String\n    'age': Number \n    'phone': String\n    'image': String \n  },\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/5ebd483a1b22492618e73f14/show",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"5ebd483a1b22492618e73f14",
 								"show"
 							]
 						},
-						"description": "Get a user with is :id"
+						"description": "### [GET] Get User information\nGet the user information with the user :id\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Only the user    |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : POST → user/:id/show\n\n#### Response :\n```javascript\n  {\n    '_id': Object_ID,\n    'first_name': String\n    'last_name': String\n    'age': Number \n    'phone': String\n    'image': String \n  }\n```"
 					},
 					"response": []
 				},
@@ -37,7 +59,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"first_name\": \"test\",\r\n  \"last_name\": \"test\",\r\n  \"email\": \"test@mail.com\",\r\n  \"password\": \"test\",\r\n  \"age\": 23,\r\n  \"city\": \"Paris\",\r\n  \"city_code\": \"75019\",\r\n  \"street_number\": \"84\",\r\n  \"street_type\": \"Avenue\",\r\n  \"street_name\": \"Secretan\",\r\n  \"phone\": \"0658549047\"\r\n}",
+							"raw": "{\r\n  \"first_name\": \"Jacques\",\r\n  \"last_name\": \"Chirac\",\r\n  \"email\": \"jc@mail.com\",\r\n  \"password\": \"jc\",\r\n  \"age\": 91,\r\n  \"phone\": \"6666666666\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -56,50 +78,7 @@
 								"create"
 							]
 						},
-						"description": "Create e new user"
-					},
-					"response": []
-				},
-				{
-					"name": "search",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/user/search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"search"
-							]
-						},
-						"description": "Search all users"
-					},
-					"response": []
-				},
-				{
-					"name": "delete",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/use/5ebad8ef50a3e2558056ef8e/delete",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"use",
-								"5ebad8ef50a3e2558056ef8e",
-								"delete"
-							]
-						},
-						"description": "delete an user"
+						"description": "### [POST] Create user\nAllows the creation of a single user.\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | No               |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : POST → user/create\n\n#### Parameters :\n```javascript\n{\n  'first_name': String, // Required\n  'last_name': String, // Required\n  'email': String, // Required & Unique\n  'password': String, // Required\n  'age': Number // Required\n  'phone': String// Required\n  'image': String // Optional\n}\n```\n\n#### Response :\n```javascript\n  {\n    '_id': Object_ID,\n    'first_name': String\n    'last_name': String\n    'age': Number \n    'phone': String\n    'image': String \n  }\n```"
 					},
 					"response": []
 				},
@@ -110,7 +89,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"age\" : 50,\r\n\t\"email\" : \"maybe@mail.com\"\r\n}",
+							"raw": "{\r\n\t\"age\" : 50,\r\n\t\"email\" : \"maybe@mail.com\",\r\n\t\"phone\" : \"12121212121\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -118,7 +97,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user/5eb2ac966d614f505c70ca25/update",
+							"raw": "http://localhost:3000/user/5ebd483a1b22492618e73f14/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -126,27 +105,50 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"5eb2ac966d614f505c70ca25",
+								"5ebd483a1b22492618e73f14",
 								"update"
 							]
 						},
-						"description": "Update an user :id"
+						"description": "### [PUT] Update an user\nUpdate the informations of an user with :id\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : PUT → user/:id/update\n\n#### Parameters :\n```javascript\n{\n  'first_name': String, // Optional\n  'last_name': String, // Optional\n  'email': String, // Optional\n  'password': String, // Optional\n  'age': Number // Optional\n  'phone': String// Optional\n  'image': String // Optional\n}\n```\n\n#### Response :\n```javascript\n  {\n    '_id': Object_ID,\n    'first_name': String\n    'last_name': String\n    'age': Number \n    'phone': String\n    'image': String \n  }\n```"
 					},
 					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "Events",
-			"item": [
+				},
 				{
 					"name": "Delete",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/event/5ebaf9f00b912e4bb0dd25e3/delete",
+							"raw": "http://localhost:3000/user/5ebad8ef50a3e2558056ef8e/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"5ebad8ef50a3e2558056ef8e",
+								"delete"
+							]
+						},
+						"description": "### [DELETE] Delete an user\nDelete an user with an :id\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner            |\n| Response formats           | application/json |\n\n* HTTP request : DELETE → user/:id/delete\n\n#### Response :\n```javascript\n{\n    code: 200,\n    message: \"User succesfully deleted\"\n}\n```"
+					},
+					"response": []
+				}
+			],
+			"description": "\n| Method | Endpoint            | Usage                              | Return        |\n|--------|---------------------|------------------------------------|---------------|\n| GET    | `/user/search` | Get all users | user |\n| GET    | `/user/{id}` | Get one user | user |\n| POST    | `/user/create` | Create an user | user |\n| PUT    | `/user/{id}/update` | Edit an user | user |\n| Delete    | `/user/{id}/delete` | Delete an user | boolean |\n",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/event/search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -154,11 +156,32 @@
 							"port": "3000",
 							"path": [
 								"event",
-								"5ebaf9f00b912e4bb0dd25e3",
-								"delete"
+								"search"
 							]
 						},
-						"description": "Delete an event :id"
+						"description": "### [GET] Get all events\nGet all the events\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | No               |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : POST → event/search\n\n#### Response :\n```javascript\n{\n  {\n    '_id': Object_ID,\n    'name': String \n    'description': String \n    'begin_date': Date \n    'end_date': Date \n    'location': {\n      'lat': Number \n      'lon': Number \n     },\n    'staff': [{\n       ObjectId.user \n     }],\n    'members': [{\n       ObjectId.user \n    }],\n    'privacy': Boolean\n    'shopping': Boolean\n    'image': String\n  }\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/event/5ebd5975fa19344fb88e528d/show",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"event",
+								"5ebd5975fa19344fb88e528d",
+								"show"
+							]
+						},
+						"description": "### [GET] Get an event\nGet an event with his :id\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | No               |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : POST → event/:id/show\n\n#### Response :\n```javascript\n  {\n    '_id': Object_ID,\n    'name': String \n    'description': String \n    'begin_date': Date \n    'end_date': Date \n    'location': {\n      'lat': Number \n      'lon': Number \n     },\n    'staff': [{\n       ObjectId.user \n     }],\n    'members': [{\n       ObjectId.user \n    }],\n    'privacy': Boolean\n    'shopping': Boolean\n    'image': String\n  }\n```"
 					},
 					"response": []
 				},
@@ -169,7 +192,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"administrator\": \"5e5fb8c034c16915b77cf116\",\r\n  \"name\": \"MDS\",\r\n  \"description\": \"Meeting MDS\",\r\n  \"begin_date\": \"2020-03-04T14:29:23.736Z\",\r\n  \"end_date\": \"2020-03-04T17:29:23.736Z\",\r\n\t\"privacy\": 0,\r\n  \"location\": {\r\n    \"lat\": 48.8961081,\r\n    \"lon\": 2.3811882\r\n  },\r\n  \"staff\": [\r\n\t\t\"5ebbfbccdab9d8242489dc6a\"\r\n\t],\r\n  \"members\": [\r\n\t\t\"5ebbfbccdab9d8242489dc6a\",\r\n\t\t\"5ebbfb309780344500357c5e\"\r\n\t]\r\n}",
+							"raw": "{\r\n\t\"administrator\": \"5ebd483a1b22492618e73f14\",\r\n  \"name\": \"MDS\",\r\n  \"description\": \"Meeting MDS\",\r\n  \"begin_date\": \"2020-03-04T14:29:23.736Z\",\r\n  \"end_date\": \"2020-03-04T17:29:23.736Z\",\r\n\t\"privacy\": 0,\r\n  \"location\": {\r\n    \"lat\": 48.8961081,\r\n    \"lon\": 2.3811882\r\n  },\r\n  \"staff\": [\r\n\t\t\"5ebd483a1b22492618e73f14\"\r\n\t],\r\n  \"members\": [\r\n\t\t\"5ebd483a1b22492618e73f14\"\r\n\t]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -188,50 +211,7 @@
 								"create"
 							]
 						},
-						"description": "Create an element :id"
-					},
-					"response": []
-				},
-				{
-					"name": "Search",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/event/search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"event",
-								"search"
-							]
-						},
-						"description": "Get all events"
-					},
-					"response": []
-				},
-				{
-					"name": "Get",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/event/5ebbfbe5dab9d8242489dc6b/show",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"event",
-								"5ebbfbe5dab9d8242489dc6b",
-								"show"
-							]
-						},
-						"description": "Show an event :id"
+						"description": "### [POST] Create event\nAllows the creation of an event.\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : POST → event/create\n\n#### Parameters :\n```javascript\n{\n  'administrator': ObjectId.user // Required\n  'name': String // Required\n  'description': String // Required\n  'begin_date': Date // Required\n  'end_date': Date // Required\n  'location': {\n    'lat': Number // Required\n    'lon': Number // Required\n  },\n  staff: [{\n    ObjectId.user // Optionnal\n  }],\n  members: [{\n    ObjectId.user // Optionnal\n  }],\n  'privacy': Boolean // Optionnal & Default : True\n  'shopping': Boolean // Optionnal & Default : True\n  'image': String // Optionnal\n}\n```\n\n#### Response :\n```javascript\n  {\n    '_id': Object_ID,\n    'name': String \n    'description': String \n    'begin_date': Date \n    'end_date': Date \n    'location': {\n      'lat': Number \n      'lon': Number \n     },\n    'staff': [{\n       ObjectId.user \n     }],\n    'members': [{\n       ObjectId.user \n    }],\n    'privacy': Boolean\n    'shopping': Boolean\n    'image': String\n  }\n```"
 					},
 					"response": []
 				},
@@ -242,7 +222,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"administrator\" : \"5ebbfbccdab9d8242489dc6a\"\r\n}",
+							"raw": "{\r\n\t\"name\" : \"My Digital School\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -250,7 +230,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/event/5e5fc8d92d58001ab012ed2e/update",
+							"raw": "http://localhost:3000/event/5ebd5975fa19344fb88e528d/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -258,31 +238,50 @@
 							"port": "3000",
 							"path": [
 								"event",
-								"5e5fc8d92d58001ab012ed2e",
+								"5ebd5975fa19344fb88e528d",
 								"update"
 							]
 						},
-						"description": "Update an event :id"
+						"description": "### [PUT] Update event\nAllows the update of an event with his :id.\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and user   |\n| Response formats           | application/json |\n\n* HTTP request : PUT → event/:id/update\n\n#### Parameters :\n```javascript\n{\n  'administrator': ObjectId.user // Optionnal\n  'name': String // Optionnal\n  'description': String // Optionnal\n  'begin_date': Date // Optionnal\n  'end_date': Date // Optionnal\n  'location': {\n    'lat': Number // Optionnal\n    'lon': Number // Optionnal\n  },\n  staff: [{\n    ObjectId.user // Optionnal\n  }],\n  members: [{\n    ObjectId.user // Optionnal\n  }],\n  'privacy': Boolean // Optionnal \n  'shopping': Boolean // Optionnal \n  'image': String // Optionnal\n}\n```\n\n#### Response :\n```javascript\n  {\n    '_id': Object_ID,\n    'name': String \n    'description': String \n    'begin_date': Date \n    'end_date': Date \n    'location': {\n      'lat': Number \n      'lon': Number \n     },\n    'staff': [{\n       ObjectId.user \n     }],\n    'members': [{\n       ObjectId.user \n    }],\n    'privacy': Boolean\n    'shopping': Boolean\n    'image': String\n  }\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/event/5ebaf9f00b912e4bb0dd25e3/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"event",
+								"5ebaf9f00b912e4bb0dd25e3",
+								"delete"
+							]
+						},
+						"description": "### [DELETE] Delete an event\nDelete an event with an :id\n\n|                            |                      |\n|----------------------------|----------------------|\n| Requires authentication ?  | Yes                  |\n| Who can use it ?           | Owner and event owner|\n| Response formats           | application/json     |\n\n* HTTP request : DELETE → event/:id/delete\n\n#### Response :\n```javascript\n{\n    code: 200,\n    message: \"Event succesfully deleted\"\n}\n```"
 					},
 					"response": []
 				}
 			],
+			"description": "\n| Method | Endpoint            | Usage                              | Return        |\n|--------|---------------------|------------------------------------|---------------|\n| GET    | `/event/search` | Get all events | event |\n| GET    | `/event/{id}` | Get one event | event |\n| POST    | `/event/create` | Create an event | event |\n| PUT    | `/event/{id}/update` | Edit an event | event |\n| Delete    | `/event/{id}/delete` | Delete an event | boolean |",
 			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Group",
 			"item": [
 				{
-					"name": "Delete",
+					"name": "Search",
 					"request": {
-						"method": "DELETE",
+						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
-							"raw": "http://localhost:3000/group/5eb7f7cdf6e9d12e9cbe51d5/delete",
+							"raw": "http://localhost:3000/group/search",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -290,11 +289,55 @@
 							"port": "3000",
 							"path": [
 								"group",
-								"5eb7f7cdf6e9d12e9cbe51d5",
-								"delete"
+								"search"
 							]
 						},
-						"description": "Delete a group :id"
+						"description": "### [GET] Get all groups\nGet all groups\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | No               |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : GET→ group/search\n\n#### Response :\n```javascript\n{\n  {\n    '_id': Object_ID,\n    'name': String \n    'description': String \n    'begin_date': Date \n    'end_date': Date \n    'location': {\n      'lat': Number \n      'lon': Number \n     },\n    'staff': [{\n       ObjectId.user \n     }],\n    'members': [{\n       ObjectId.user \n    }],\n    'privacy': Boolean\n    'shopping': Boolean\n    'image': String\n  }\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/group/5ebd5a16fa19344fb88e5291/show",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"group",
+								"5ebd5a16fa19344fb88e5291",
+								"show"
+							]
+						},
+						"description": "### [GET] Get a group\nGet a group with an :id\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | No               |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : GET → group/:id/show\n\n#### Response :\n```javascript\n{\n  'name': ObjectId// Required \n  'description': String // Required\n  'administrator': [{\n       ObjectId // Optionnal\n  }],\n  'members': [{\n       ObjectId // Optionnal\n  }],\n  'group_type': String // Optionnal & Possible: public, private, secret // \n   Default: public\n  'post_authorization' : Boolean // Optionnal & Default: True\n  'events_authorization' : Boolean // Optionnal & Default: True\n  'icone': {\n       String // Optionnal \n   }\n  cover: {\n       String // Optionnal \n  }\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get members",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/group/5ebd5a16fa19344fb88e5291/show/members",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"group",
+								"5ebd5a16fa19344fb88e5291",
+								"show",
+								"members"
+							]
+						},
+						"description": "### [GET] Get the members of a group\nGet all the members of a group with an :id\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | No               |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : GET → group/:id/show/members\n\n#### Response :\n```javascript\n{\n  '_id': Object.id\n  'members': [{\n       ObjectId\n  }],\n}\n```"
 					},
 					"response": []
 				},
@@ -305,7 +348,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\t\r\n\t\"name\": \"groupe3\",\r\n  \"description\":  \"groupe3\",\r\n  \"administrator\":  [\"5ebbfb309780344500357c5e\"]\r\n}",
+							"raw": "{\t\r\n\t\"name\": \"groupe3\",\r\n  \"description\":  \"groupe3\",\r\n  \"administrator\":  [\"5ebd483a1b22492618e73f14\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -324,7 +367,7 @@
 								"create"
 							]
 						},
-						"description": "Create a group :id"
+						"description": "### [POST] Create group\nAllows the creation of a group.\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : POST → group/create\n\n#### Parameters :\n```javascript\n{\n  'name': String // Required & Unique\n  'description': String // Required\n  'administrator': [{\n      ObjectId // Required\n  }],\n  'members': [{\n      ObjectId // Optionnal\n  }],\n  'group_type': String // Optionnal & Possible: 'public', 'private', 'secret' \n  // Default: Public\n  'post_authorization' : Boolean // Optionnal & Default: True\n  'events_authorization' : Boolean // Optionnal & Default: True\n  'icone': String // Optionnal & Default image\n  'cover': String // Optionnal & Default image\n}\n```\n\n#### Response :\n```javascript\n  {\n    '_id': Object_ID,\n    'name': String \n    'description': String \n    'administrator': [{\n       ObjectId \n     }],\n    'members': [{\n        ObjectId\n     }],\n    'group_type': String \n    'post_authorization' : Boolean \n    'events_authorization' : Boolean \n    'icone': String \n    'cover': {\n       type: String\n     }\n  }\n```"
 					},
 					"response": []
 				},
@@ -343,7 +386,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/group/5ebbfb549780344500357c5f/update",
+							"raw": "http://localhost:3000/group/5ebd5a16fa19344fb88e5291/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -351,21 +394,28 @@
 							"port": "3000",
 							"path": [
 								"group",
-								"5ebbfb549780344500357c5f",
+								"5ebd5a16fa19344fb88e5291",
 								"update"
 							]
 						},
-						"description": "Update a group :id"
+						"description": "### [PUT] Update group\nAllows the update of a group.\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : PUT → group/:id/update\n\n#### Parameters :\n```javascript\n{\n  'name': String // Optionnal & Unique\n  'description': String // Optionnal \n  'administrator': [{\n      ObjectId // Optionnal \n  }],\n  'members': [{\n      ObjectId // Optionnal \n  }],\n  'group_type': String // Optionnal & Possible: 'public', 'private', 'secret' \n  'post_authorization' : Boolean // Optionnal\n  'events_authorization' : Boolean // Optionnal\n  'icone': String // Optionnal\n  'cover': String // Optionnal\n  }\n}\n```\n\n#### Response :\n```javascript\n  {\n    '_id': Object_ID,\n    'name': String \n    'description': String \n    'administrator': [{\n       ObjectId\n     }],\n    'members': [{\n        ObjectId\n     }],\n    'group_type': String \n    'post_authorization' : Boolean \n    'events_authorization' : Boolean \n    'icone': String \n    'cover': {\n       type: String\n     }\n  }\n```"
 					},
 					"response": []
 				},
 				{
-					"name": "Get",
+					"name": "Delete",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/group/5ebbfb549780344500357c5f/show",
+							"raw": "http://localhost:3000/group/5ebd59d9fa19344fb88e528e/delete",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -373,58 +423,16 @@
 							"port": "3000",
 							"path": [
 								"group",
-								"5ebbfb549780344500357c5f",
-								"show"
+								"5ebd59d9fa19344fb88e528e",
+								"delete"
 							]
 						},
-						"description": "Get a group :id"
-					},
-					"response": []
-				},
-				{
-					"name": "Search",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/group/search",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"group",
-								"search"
-							]
-						},
-						"description": "Get all groups"
-					},
-					"response": []
-				},
-				{
-					"name": "Get members",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/group/show/5ebbfb549780344500357c5f/members",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"group",
-								"show",
-								"5ebbfb549780344500357c5f",
-								"members"
-							]
-						}
+						"description": "### [DELETE] Delete a group\nDelete a group with an :id\n\n|                            |                      |\n|----------------------------|----------------------|\n| Requires authentication ?  | Yes                  |\n| Who can use it ?           | Owner and event owner|\n| Response formats           | application/json     |\n\n* HTTP request : DELETE → group/:id/delete\n\n#### Response :\n```javascript\n{\n    code: 200,\n    message: \"Group succesfully deleted\"\n}\n```"
 					},
 					"response": []
 				}
 			],
+			"description": "### Groups :\n\n| Method | Endpoint            | Usage                              | Return        |\n|--------|---------------------|------------------------------------|---------------|\n| GET    | `/group/search` | Get all groups | group |\n| GET    | `/group/{id}` | Get one group | group |\n| POST    | `/group/create` | Create a group | group |\n| PUT    | `/group/{id}/update` | Edit a group | group |\n| Delete    | `/group/{id}/delete` | Delete a group | boolean |\n",
 			"protocolProfileBehavior": {}
 		},
 		{
@@ -446,7 +454,7 @@
 								"discussion"
 							]
 						},
-						"description": "Get all discussions"
+						"description": "### [GET] Get all discussions\nGet all discussion in relation with a comment\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | No               |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : GET→ /discussion\n\n#### Response :\n```javascript\n{\n  {\n    type: String\n    creation_date: Date\n    id : ObjectId\n  }\n}\n```"
 					},
 					"response": []
 				},
@@ -456,7 +464,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/discussion/5ebc611e448aac3f8cd36fa0",
+							"raw": "http://localhost:3000/discussion/5ebd5a52fa19344fb88e5292",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -464,19 +472,20 @@
 							"port": "3000",
 							"path": [
 								"discussion",
-								"5ebc611e448aac3f8cd36fa0"
+								"5ebd5a52fa19344fb88e5292"
 							]
-						}
+						},
+						"description": "### [GET] Get a discussion\nGet a discussion with an :id\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : GET → discussion/:id\n\n#### Response :\n```javascript\n{\n  type: String\n  creation_date: Date\n  id : ObjectId\n}\n```"
 					},
 					"response": []
 				},
 				{
-					"name": "Get all messages in discussion",
+					"name": "Get all messages",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/discussion/5ebc611e448aac3f8cd36fa0/message",
+							"raw": "http://localhost:3000/discussion/5ebd5a52fa19344fb88e5292/message",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -484,10 +493,11 @@
 							"port": "3000",
 							"path": [
 								"discussion",
-								"5ebc611e448aac3f8cd36fa0",
+								"5ebd5a52fa19344fb88e5292",
 								"message"
 							]
-						}
+						},
+						"description": "### [GET] Get all the messages from a discussion\nGet all the messages from a discussion with an :id of the discussion \n\n|                            |                                |\n|----------------------------|--------------------------------|\n| Requires authentication ?  | Yes                            |\n| Who can use it ?           | Owner and group/event members  |\n| Response formats           | application/json               |\n\n* HTTP request : GET → discussion/:id/message\n\n#### Response :\n```javascript\n{\n  author_id: ObjectId\n  discussion_id: ObjectId \n  content: String\n  creation_date: Date\n  id: ObjectId \n}\n```"
 					},
 					"response": []
 				},
@@ -498,7 +508,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"type\": \"group\"\n}",
+							"raw": "{\n\t\"type\": \"group_message\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -516,7 +526,8 @@
 								"discussion",
 								"create"
 							]
-						}
+						},
+						"description": "### [POST] Create discussion\nAllows the creation of a discussion.\n\n|                            |                                |\n|----------------------------|--------------------------------|\n| Requires authentication ?  | Yes                            |\n| Who can use it ?           | Owner and event/group members  |\n| Response formats           | application/json               |\n\n* HTTP request : POST → discussion/create\n\n#### Parameters :\n```javascript\n{\n   'type': String // Required & Possible : group_message, event_message, \n    photo_message\n   'creation_date': Date // Optionnal \n}\n```\n\n#### Response :\n```javascript\n{\n   type: String\n   creation_date: Data\n   id: ObjectId\n}\n```"
 					},
 					"response": []
 				},
@@ -527,7 +538,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"type\": \"event\"\n}",
+							"raw": "{\n\t \"date_creation\": \"2020-05-10T10:36:21.726Z\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -535,7 +546,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/discussion/5ebc611e448aac3f8cd36fa0/update",
+							"raw": "http://localhost:3000/discussion/5ebd21fbe5a536443c8ae65f/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -543,10 +554,11 @@
 							"port": "3000",
 							"path": [
 								"discussion",
-								"5ebc611e448aac3f8cd36fa0",
+								"5ebd21fbe5a536443c8ae65f",
 								"update"
 							]
-						}
+						},
+						"description": "### [PUT] Update discussion\nAllows the update of a discussion.\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner            |\n| Response formats           | application/json |\n\n* HTTP request : PUT → discussion/:id/update\n\n#### Parameters :\n```javascript\n 'type': String // Optionnal & Possible : group_message, event_message, \n    photo_message\n 'creation_date': Date // Optionnal \n}\n```\n\n#### Response :\n```javascript\n{\n   type: String\n   creation_date: Data\n   id: ObjectId\n}\n```"
 					},
 					"response": []
 				},
@@ -556,7 +568,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/discussion/5ebc611e448aac3f8cd36fa0/delete",
+							"raw": "http://localhost:3000/discussion/5ebd1fc53e60f04cc4d59542/delete",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -564,14 +576,16 @@
 							"port": "3000",
 							"path": [
 								"discussion",
-								"5ebc611e448aac3f8cd36fa0",
+								"5ebd1fc53e60f04cc4d59542",
 								"delete"
 							]
-						}
+						},
+						"description": "### [DELETE] Delete a discussion\nDelete a discussion with an :id\n\n|                            |                            |\n|----------------------------|----------------------------|\n| Requires authentication ?  | Yes                        |\n| Who can use it ?           | Owner and event/group administrator|\n| Response formats           | application/json           |\n\n* HTTP request : DELETE → discussion/:id/delete\n\n#### Response :\n```javascript\n{\n    status: 200,\n    message: \"successfully deleted\"\n}\n```"
 					},
 					"response": []
 				}
 			],
+			"description": "### Discussions :\n\n| Method | Endpoint            | Usage                              | Return        |\n|--------|---------------------|------------------------------------|---------------|\n| GET    | `/discussion` | Get all discussions | discussions |\n| GET    | `/discussion/{id}` | Get one discussion | discussion |\n| POST    | `/discussion/create` | Create a discussion | discussion |\n| PUT    | `/discussion/{id}/update` | Edit a discussion | discussion |\n| Delete    | `/discussion/{id}/delete` | Delete a discussion | boolean |\n| GET    | `/discussion/{id}/message` | Get all messages from a discussion | messages |",
 			"protocolProfileBehavior": {}
 		},
 		{
@@ -593,7 +607,7 @@
 								"message"
 							]
 						},
-						"description": "Get all messages"
+						"description": "### [GET] Get all messages\nGet all messages\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : GET→ /message\n\n#### Response :\n```javascript\n[\n  {\n      author_id: ObjectId\n      discussion_id\": ObjectId\n      content: String\n      creation_date: Date\n      id: ObjectId\n  },\n]\n```"
 					},
 					"response": []
 				},
@@ -603,7 +617,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/message/5ebc622c448aac3f8cd36fa1",
+							"raw": "http://localhost:3000/message/5ebdc565473a4138242736b5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -611,31 +625,10 @@
 							"port": "3000",
 							"path": [
 								"message",
-								"5ebc622c448aac3f8cd36fa1"
+								"5ebdc565473a4138242736b5"
 							]
 						},
-						"description": "Get a message with :id"
-					},
-					"response": []
-				},
-				{
-					"name": "Get all comments of a message",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/message/5ebc622c448aac3f8cd36fa1/comment",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"message",
-								"5ebc622c448aac3f8cd36fa1",
-								"comment"
-							]
-						}
+						"description": "### [GET] Get a message\nGet a message with an :id\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : GET → message/:id\n\n#### Response :\n```javascript\n{\n   author_id: ObjectId\n   discussion_id: ObjectId\n   content: String\n   creation_date: Date\n   id: ObjectId\n}\n```"
 					},
 					"response": []
 				},
@@ -646,7 +639,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"author_id\": \"5ebbfb309780344500357c5e\",\n\t\"discussion_ref\": \"5ebc611e448aac3f8cd36fa0\",\n\t\"content\": \"Hello World !\"\n}",
+							"raw": "{\n\t\"author_id\": \"5ebd483a1b22492618e73f14\",\n\t\"discussion_id\": \"5ebd5a52fa19344fb88e5292\",\n\t\"content\": \"Hello World !\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -664,7 +657,8 @@
 								"message",
 								"create"
 							]
-						}
+						},
+						"description": "### [POST] Create message\nAllows the creation of a message in a discussion.\n\n|                            |                                |\n|----------------------------|--------------------------------|\n| Requires authentication ?  | Yes                            |\n| Who can use it ?           | Owner and event/group members  |\n| Response formats           | application/json               |\n\n* HTTP request : POST → message/create\n\n#### Parameters :\n```javascript\n{\n   'author_id': ObjectId // Required\n   'discussion_id': ObjectId // Required\n   'content': String // Required\n}\n```\n\n#### Response :\n```javascript\n{\n   author_id: ObjectId \n   discussion_id: ObjectId \n   content: String \n   id: ObjectId\n}\n```"
 					},
 					"response": []
 				},
@@ -675,7 +669,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"content_modified\": \"Salutation jeune padawan\",\n\t\"date_modified\": \"2020-05-03T20:18:30.207Z\"\n}",
+							"raw": "{\n\t\"content\":\"Test\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -683,7 +677,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/message/5ebc622c448aac3f8cd36fa1/update",
+							"raw": "http://localhost:3000/message/5ebd5a9cfa19344fb88e5293/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -691,10 +685,11 @@
 							"port": "3000",
 							"path": [
 								"message",
-								"5ebc622c448aac3f8cd36fa1",
+								"5ebd5a9cfa19344fb88e5293",
 								"update"
 							]
-						}
+						},
+						"description": "### [PUT] Update message\nAllows the update of a message in a discussion by the writer of it.\n\n|                            |                                |\n|----------------------------|--------------------------------|\n| Requires authentication ?  | Yes                            |\n| Who can use it ?           | Owner and message writer       |\n| Response formats           | application/json               |\n\n* HTTP request : PUT → message/create\n\n#### Parameters :\n```javascript\n{\n   'content': String // Optionnal\n}\n```\n\n#### Response :\n```javascript\n{\n   author_id': ObjectId \n   discussion_id': ObjectId \n   content: String \n   id: ObjectId\n}\n```"
 					},
 					"response": []
 				},
@@ -704,7 +699,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/message//delete",
+							"raw": "http://localhost:3000/message/5ebd5a9cfa19344fb88e5293/delete",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -712,19 +707,84 @@
 							"port": "3000",
 							"path": [
 								"message",
-								"",
+								"5ebd5a9cfa19344fb88e5293",
 								"delete"
 							]
-						}
+						},
+						"description": "### [DELETE] Delete a message of a discussion\nDelete a message of a discussion with an :id\n\n|                            |                            |\n|----------------------------|----------------------------|\n| Requires authentication ?  | Yes                        |\n| Who can use it ?           | Owner and event/group administrator and writer of the message|\n| Response formats           | application/json           |\n\n* HTTP request : DELETE → message/:id/delete\n\n#### Response :\n```javascript\n{\n    status: 200,\n    message: \"successfully deleted\"\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all comments of a message",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/message/5ebdc565473a4138242736b5/comment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"message",
+								"5ebdc565473a4138242736b5",
+								"comment"
+							]
+						},
+						"description": "### [GET] Get all comments of a message\nGet all comments of a message with and :id of a message\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : GET→ /message/:id/comment\n\n#### Response :\n```javascript\n[\n  {\n      type: String\n      author_id: ObjectId\n      link_id: ObjectId\n      content: String\n      creation_date: Date\n      id: ObjectId\n  },\n]\n```"
 					},
 					"response": []
 				}
 			],
+			"description": "### Messages :\n\n| Method | Endpoint            | Usage                              | Return        |\n|--------|---------------------|------------------------------------|---------------|\n| GET    | `/message` | Get all messages | messages |\n| GET    | `/message/{id}` | Get one message | message |\n| POST    | `/message/create` | Create a message | message |\n| PUT    | `/message/{id}/update` | Edit a message | message |\n| Delete    | `/message/{id}/delete` | Delete a message | boolean |\n| GET    | `/message/{id}/comment` | Get all comments from a message | comments |\n",
 			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Comment",
 			"item": [
+				{
+					"name": "Get All ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/comment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"comment"
+							]
+						},
+						"description": "### [GET] Get all comments \nGet all comments \n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : GET→ /comment\n\n#### Response :\n```javascript\n[\n  {\n      type: String\n      author_id: ObjectId\n      link_id: ObjectId\n      content: String\n      creation_date: Date\n      id: ObjectId\n  },\n]\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/comment/5ebd77240184360e18a3dea5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"comment",
+								"5ebd77240184360e18a3dea5"
+							]
+						},
+						"description": "### [GET] Get a comment\nGet a comment with an :id\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : GET → comment/:id\n\n#### Response :\n```javascript\n{\n   type: String\n   author_id: ObjectId\n   link_id: ObjectId\n   content: String\n   creation_date: Date\n   id: ObjectId\n}\n```"
+					},
+					"response": []
+				},
 				{
 					"name": "Create",
 					"request": {
@@ -732,7 +792,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": " {\r\n \t\"type\": \"event_message\",\r\n    \"author_id\": \"5ebbfbccdab9d8242489dc6a\",\r\n    \"ref\": \"5ebbfbe5dab9d8242489dc6b\",\r\n    \"content\": \"Awesome\"\r\n }",
+							"raw": " {\r\n \t\"type\": \"photo_message\",\r\n    \"author_id\": \"5ebd483a1b22492618e73f14\",\r\n    \"link_id\": \"5ebd76b8e67a2b45a4c8cde3\",\r\n    \"content\": \"Awesome\"\r\n }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -751,7 +811,7 @@
 								"create"
 							]
 						},
-						"description": "Create a comment"
+						"description": "### [POST] Create a comment\nAllows the creation of a comment in a discussion or photo.\n\n|                            |                                |\n|----------------------------|--------------------------------|\n| Requires authentication ?  | Yes                            |\n| Who can use it ?           | Owner and event/group members  |\n| Response formats           | application/json               |\n\n* HTTP request : POST → comment/create\n\n#### Parameters :\n```javascript\n{\n   'type': String // Required\n   'author_id': ObjectId // Required\n   'link_id': ObjectId // Required\n   'content': String // Required\n}\n```\n\n#### Response :\n```javascript\n{\n   type: String\n   author_id: ObjectId \n   discussion_id: ObjectId \n   content: String \n   id: ObjectId\n}\n```"
 					},
 					"response": []
 				},
@@ -762,7 +822,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": " {\r\n \t\"type\": \"event_message\",\r\n    \"author_id\": \"5ebbfbccdab9d8242489dc6a\",\r\n    \"ref\": \"5ebbfbe5dab9d8242489dc6b\",\r\n    \"content\": \"Awesome\"\r\n }",
+							"raw": " {\r\n \t\"type\": \"photo_message\",\r\n    \"author_id\": \"5ebd483a1b22492618e73f14\",\r\n    \"link_id\": \"5ebd76b8e67a2b45a4c8cde3\",\r\n    \"content\": \"Perfect !\"\r\n }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -770,7 +830,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/comment/5ebc153f828541211067dd40/update",
+							"raw": "http://localhost:3000/comment/5ebd77240184360e18a3dea5/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -778,51 +838,11 @@
 							"port": "3000",
 							"path": [
 								"comment",
-								"5ebc153f828541211067dd40",
+								"5ebd77240184360e18a3dea5",
 								"update"
 							]
 						},
-						"description": "Update a comment :id"
-					},
-					"response": []
-				},
-				{
-					"name": "Get All comments",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/comment",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"comment"
-							]
-						},
-						"description": "Get all comments "
-					},
-					"response": []
-				},
-				{
-					"name": "Get",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/comment/5ebc153f828541211067dd40",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"comment",
-								"5ebc153f828541211067dd40"
-							]
-						}
+						"description": "### [PUT] Update a comment\nAllows the update of a comment by the writer of it.\n\n|                            |                                |\n|----------------------------|--------------------------------|\n| Requires authentication ?  | Yes                            |\n| Who can use it ?           | Owner and message writer       |\n| Response formats           | application/json               |\n\n* HTTP request : PUT → comment/:id/update\n\n#### Parameters :\n```javascript\n{\n   'content': String // Optionnal\n}\n```\n\n#### Response :\n```javascript\n{\n   type: String\n   author_id: ObjectId \n   discussion_id: ObjectId \n   content: String \n   id: ObjectId\n}\n```"
 					},
 					"response": []
 				},
@@ -832,7 +852,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/comment/5ebc153f828541211067dd40/delete",
+							"raw": "http://localhost:3000/comment/5ebd30b9637d963ce4e205e2/delete",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -840,14 +860,16 @@
 							"port": "3000",
 							"path": [
 								"comment",
-								"5ebc153f828541211067dd40",
+								"5ebd30b9637d963ce4e205e2",
 								"delete"
 							]
-						}
+						},
+						"description": "### [DELETE] Delete a comment \nDelete a comment with an :id\n\n|                            |                            |\n|----------------------------|----------------------------|\n| Requires authentication ?  | Yes                        |\n| Who can use it ?           | Owner and event/group administrator and writer of the message|\n| Response formats           | application/json           |\n\n* HTTP request : DELETE → message/:id/delete\n\n#### Response :\n```javascript\n{\n    status: 200,\n    message: \"successfully deleted\"\n}\n```"
 					},
 					"response": []
 				}
 			],
+			"description": "### Comments :\n\n| Method | Endpoint            | Usage                              | Return        |\n|--------|---------------------|------------------------------------|---------------|\n| GET    | `/comment` | Get all comments | comments |\n| GET    | `/comment/{id}` | Get one comment | comment |\n| POST    | `/comment/create` | Create a comment | comment |\n| PUT    | `/comment/{id}/update` | Edit a comment | comment |\n| Delete    | `/comment/{id}/delete` | Delete a comment | boolean |",
 			"protocolProfileBehavior": {}
 		},
 		{
@@ -869,7 +891,7 @@
 								"album"
 							]
 						},
-						"description": "Get all the albums"
+						"description": "### [GET] Get all the albums\nGet all albums \n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and event members  |\n| Response formats           | application/json |\n\n* HTTP request : GET→ /album\n\n#### Response :\n```javascript\n[\n  {\n      comment: Boolean\n      event_id: ObjectId\n      title: String\n      author: ObjectId\n      title: String\n      creation_date: Date\n      id: ObjectId\n  },\n]\n```"
 					},
 					"response": []
 				},
@@ -890,7 +912,7 @@
 								"5ebd01fe14a2054a3ccc0771"
 							]
 						},
-						"description": "Get an album with :id"
+						"description": "### [GET] Get an album\nGet a album with an :id\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : GET → album/:id\n\n#### Response :\n```javascript\n{\n    comment: Boolean\n    event_id: ObjectId\n    title: String\n    author: ObjectId\n    title: String\n    creation_date: Date\n    id: ObjectId\n}\n```"
 					},
 					"response": []
 				},
@@ -901,7 +923,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"event_ref\": \"5ebbfbe5dab9d8242489dc6b\",\n\t\"title\": \"Album\",\n\t\"author\": \"5e5fb8c034c16915b77cf116\"\n}",
+							"raw": "{\n\t\"event_id\": \"5ebd5975fa19344fb88e528d\",\n\t\"title\": \"Album 2\",\n\t\"author\": \"5ebd483a1b22492618e73f14\",\n\t\"comment\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -920,18 +942,18 @@
 								"create"
 							]
 						},
-						"description": "Create an album"
+						"description": "### [POST] Create an album\nAllows the creation of an album in an event.\n\n|                            |                                |\n|----------------------------|--------------------------------|\n| Requires authentication ?  | Yes                            |\n| Who can use it ?           | Owner and event/group members  |\n| Response formats           | application/json               |\n\n* HTTP request : POST → album/create\n\n#### Parameters :\n```javascript\n{\n   'event_id': ObjectId // Required\n   'author': ObjectId // Required\n   'title': String // Required\n   'creation_date': Date // Optionnal\n   'comment': Boolean // Optionnal & Default : true\n}\n```\n\n#### Response :\n```javascript\n{\n   event_id: String\n   author: ObjectId \n   title: String\n   creation_date: Date\n   comment: Boolean\n   id: ObjectId\n}\n```"
 					},
 					"response": []
 				},
 				{
-					"name": "Edit",
+					"name": "Update",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"title\": \"Old album\",\n\t\"author\":\"5e5fb8c034c16915b77cf116\"\n}",
+							"raw": "{\n\t\"title\": \"Old album\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -939,7 +961,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/album/5ebd01fe14a2054a3ccc0771/update",
+							"raw": "http://localhost:3000/album/5ebd79717192e61618a2fdd3/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -947,11 +969,11 @@
 							"port": "3000",
 							"path": [
 								"album",
-								"5ebd01fe14a2054a3ccc0771",
+								"5ebd79717192e61618a2fdd3",
 								"update"
 							]
 						},
-						"description": "Edit an album with :id"
+						"description": "### [PUT] Update an album\nAllows the update of an album by the writer of it.\n\n|                            |                                |\n|----------------------------|--------------------------------|\n| Requires authentication ?  | Yes                            |\n| Who can use it ?           | Owner and event owner or album creator|\n| Response formats           | application/json               |\n\n* HTTP request : PUT → album/:id/update\n\n#### Parameters :\n```javascript\n{\n   'title': String // Optionnal\n}\n```\n\n#### Response :\n```javascript\n{\n   event_id: String\n   author: ObjectId \n   title: String\n   creation_date: Date\n   comment: Boolean\n   id: ObjectId\n}\n```"
 					},
 					"response": []
 				},
@@ -973,23 +995,24 @@
 								"delete"
 							]
 						},
-						"description": "Delete an album with :id"
+						"description": "### [DELETE] Delete an album\nDelete an album with an :id\n\n|                            |                            |\n|----------------------------|----------------------------|\n| Requires authentication ?  | Yes                        |\n| Who can use it ?           | Owner and event administrator and the album  creator \n| Response formats           | application/json           |\n\n* HTTP request : DELETE → album/:id/delete\n\n#### Response :\n```javascript\n{\n    status: 200,\n    message: \"successfully deleted\"\n}\n```"
 					},
 					"response": []
 				}
 			],
+			"description": "### Albums :\n\n| Method | Endpoint            | Usage                              | Return        |\n|--------|---------------------|------------------------------------|---------------|\n| GET    | `/album` | Get all albums | albums |\n| GET    | `/album/{id}` | Get one album | album |\n| POST    | `/album/create` | Create a album | album |\n| PUT    | `/album/{id}/update` | Edit a album | album |\n| Delete    | `/album/{id}/delete` | Delete a album | boolean |\n",
 			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "Pictures",
 			"item": [
 				{
-					"name": "Get all comments ",
+					"name": "Get all",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/album/5ebcfe5a29f547283c4116aa/picture/5ebd0be809d4b54b2c3f7217/comment",
+							"raw": "http://localhost:3000/album/5ebd79717192e61618a2fdd3/picture",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -997,13 +1020,11 @@
 							"port": "3000",
 							"path": [
 								"album",
-								"5ebcfe5a29f547283c4116aa",
-								"picture",
-								"5ebd0be809d4b54b2c3f7217",
-								"comment"
+								"5ebd79717192e61618a2fdd3",
+								"picture"
 							]
 						},
-						"description": "Get all comments of a picture with :id album and :id picture"
+						"description": "### [GET] Get all the albums pictures\nGet all albums pictures with the :id album\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and event members  |\n| Response formats           | application/json |\n\n* HTTP request : GET → /album/:id/picture\n\n#### Response :\n```javascript\n[\n  {\n      album_id: ObjectId\n      path: String\n      title: String\n      creation_date: Date\n      id: ObjectId\n  },\n]\n```"
 					},
 					"response": []
 				},
@@ -1035,34 +1056,12 @@
 								"create"
 							]
 						},
-						"description": "Create a picture in album with :id"
+						"description": "### [POST] Create an picture album\nAllows the creation of a picture in an album with the :id album\n\n|                            |                                |\n|----------------------------|--------------------------------|\n| Requires authentication ?  | Yes                            |\n| Who can use it ?           | Owner and event/group members  |\n| Response formats           | application/json               |\n\n* HTTP request : POST → album/:id/picture/create\n\n#### Parameters :\n```javascript\n{\n   'album_id': ObjectId // Required\n   'path': String// Required\n   'title': String // Required\n   'creation_date': Date // Optionnal\n}\n```\n\n#### Response :\n```javascript\n{\n   album_id: ObjectId\n   path: String\n   title: String\n   creation_date: Date\n   id: ObjectId\n}\n```"
 					},
 					"response": []
 				},
 				{
-					"name": "Get all",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/album/5ebd01fe14a2054a3ccc0771/picture",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"album",
-								"5ebd01fe14a2054a3ccc0771",
-								"picture"
-							]
-						},
-						"description": "Get all pictures in album"
-					},
-					"response": []
-				},
-				{
-					"name": "Edit",
+					"name": "Update",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -1076,7 +1075,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/album/5ebd0be809d4b54b2c3f7217/picture/update",
+							"raw": "http://localhost:3000/album/picture/5ebd79ae7192e61618a2fdd4/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1084,12 +1083,12 @@
 							"port": "3000",
 							"path": [
 								"album",
-								"5ebd0be809d4b54b2c3f7217",
 								"picture",
+								"5ebd79ae7192e61618a2fdd4",
 								"update"
 							]
 						},
-						"description": "Edit a picture in album with :id"
+						"description": "### [PUT] Update a picture album\nAllows the update of a picture in an album by the writer of it with the picture :id\n\n|                            |                                |\n|----------------------------|--------------------------------|\n| Requires authentication ?  | Yes                            |\n| Who can use it ?           | Owner and event owner or album creator|\n| Response formats           | application/json               |\n\n* HTTP request : PUT → album/picture/:id/update\n\n#### Parameters :\n```javascript\n{\n   'path': String // Optionnal\n   'title': String // Optionnal\n}\n```\n\n#### Response :\n```javascript\n{\n   album_id: ObjectId\n   path: String\n   title: String\n   creation_date: Date\n   id: ObjectId\n}\n```"
 					},
 					"response": []
 				},
@@ -1099,7 +1098,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/album/5ebd0be809d4b54b2c3f7217/picture/delete",
+							"raw": "http://localhost:3000/album/5ebd79ae7192e61618a2fdd4picture/delete",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1107,16 +1106,287 @@
 							"port": "3000",
 							"path": [
 								"album",
-								"5ebd0be809d4b54b2c3f7217",
-								"picture",
+								"5ebd79ae7192e61618a2fdd4picture",
 								"delete"
 							]
 						},
-						"description": "Delete a picture in album with :id"
+						"description": "### [DELETE] Delete a picture in an album\nDelete a picture in an album with an :id\n\n|                            |                            |\n|----------------------------|----------------------------|\n| Requires authentication ?  | Yes                        |\n| Who can use it ?           | Owner and event administrator and the album  creator \n| Response formats           | application/json           |\n\n* HTTP request : DELETE → /album/picture/:id/delete\n\n#### Response :\n```javascript\n{\n    status: 200,\n    message: \"successfully deleted\"\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all comments ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/album/5ebd79717192e61618a2fdd3/picture/5ebd79ae7192e61618a2fdd4/comment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"album",
+								"5ebd79717192e61618a2fdd3",
+								"picture",
+								"5ebd79ae7192e61618a2fdd4",
+								"comment"
+							]
+						},
+						"description": "### [GET] Get all comments of a picture\nGet all comments of a picture with the album :id and the picture :pic_id\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and users  |\n| Response formats           | application/json |\n\n* HTTP request : GET→ /album/:id/picture/:pic_id/comment\n\n#### Response :\n```javascript\n[\n  {\n      type: String\n      author_id: ObjectId\n      link_id: ObjectId\n      content: String\n      creation_date: Date\n      id: ObjectId\n  },\n]\n```"
 					},
 					"response": []
 				}
 			],
+			"description": "### Albums :\n\n| Method | Endpoint            | Usage                              | Return        |\n|--------|---------------------|------------------------------------|---------------|\n| GET    | `/album/{id}/picture` | Get all pictures in album | pictures |\n| GET    | `/album/{id}/picture/{pic_id}/comment` | Get all comments of a picture in album | comments |\n| POST    | `/album/{id}/picture/create` | Create a picture in album | picture |\n| PUT    | `/album/{id}/picture/update` | Edit a picture in album | picture |\n| Delete    | `/album/{id}/picture/delete` | Delete a picture in album | boolean |",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Shopping",
+			"item": [
+				{
+					"name": "Get All shops",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/shoppings/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"shoppings",
+								""
+							]
+						},
+						"description": "### [GET] Get all shops\nGet all shops\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and event members|\n| Response formats           | application/json |\n\n* HTTP request : GET → shoppings/:id\n\n#### Response :\n```javascript\n[\n  {\n    enable: Boolean\n    event_id: ObjectId\n    id: ObjectId\n  },\n]\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get shop",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/shoppings/5ebe67baec43f41728519883",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"shoppings",
+								"5ebe67baec43f41728519883"
+							]
+						},
+						"description": "### [GET] Get a shop\nGet a shop with an :id\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and event members|\n| Response formats           | application/json |\n\n* HTTP request : GET → shoppings/:id\n\n#### Response :\n```javascript\n{\n    enable: Boolean\n    event_id: ObjectId\n    id: ObjectId\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all items from a shop",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/shoppings/:id/items",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"shoppings",
+								":id",
+								"items"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "5ebe67baec43f41728519883"
+								}
+							]
+						},
+						"description": "### [GET] Get all items from a shop\nGet all items from a shop with an :id\n\n|                            |                  |\n|----------------------------|------------------|\n| Requires authentication ?  | Yes              |\n| Who can use it ?           | Owner and event members|\n| Response formats           | application/json |\n\n* HTTP request : GET → shoppings/:id/items\n\n#### Response :\n```javascript\n{\n    shop_id: ObjectId\n    name: String\n    creation_date: Date\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"event_id\": \"5ebd5975fa19344fb88e528d\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/shoppings/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"shoppings",
+								"create"
+							]
+						},
+						"description": "### [POST] Create a shop\nAllows the creation of a shop in an event with :id\n\n|                            |                                |\n|----------------------------|--------------------------------|\n| Requires authentication ?  | Yes                            |\n| Who can use it ?           | Owner and event administrator  |\n| Response formats           | application/json               |\n\n* HTTP request : POST → shoppings/create\n\n#### Parameters :\n```javascript\n{\n   'event_id': ObjectId // Required\n   'enable': Boolean // Optionnal & Default : True\n}\n```\n\n#### Response :\n```javascript\n{\n   enable: Boolean\n   event_id: ObjectId \n   id: ObjectId \n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Create an item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Vodka\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/shoppings/5ebe67baec43f41728519883/items/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"shoppings",
+								"5ebe67baec43f41728519883",
+								"items",
+								"create"
+							]
+						},
+						"description": "### [POST] Create a item in shop\nAllows the creation of an item in a shop with :id who's associated to an event\n\n|                            |                                |\n|----------------------------|--------------------------------|\n| Requires authentication ?  | Yes                            |\n| Who can use it ?           | Owner and event administrator  |\n| Response formats           | application/json               |\n\n* HTTP request : POST → shoppings/:id/items/create\n\n#### Parameters :\n```javascript\n{\n   'name': String // Required\n}\n```\n\n#### Response :\n```javascript\n{\n    shop_id: ObjectId\n    name: String\n    creation_date: Date\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Affect an item to an user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"shop_id\": \"5ebd5975fa19344fb88e528d\",\n\t\"item_id\": \"5ebd8da94c46c20b4469ce7f\",\n\t\"quantity\": \"1\",\n\t\"hour\": \"2020-03-04T13:19:59.417Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/shoppings_item/5ebd8da94c46c20b4469ce7f/shoppers/define/5ebd483a1b22492618e73f14",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"shoppings_item",
+								"5ebd8da94c46c20b4469ce7f",
+								"shoppers",
+								"define",
+								"5ebd483a1b22492618e73f14"
+							]
+						},
+						"description": "### [POST] Affect an item in shop to an user\nAllows the affect of an item :item_id in shop to an user :user_id who's associated to an event \n\n|                            |                                |\n|----------------------------|--------------------------------|\n| Requires authentication ?  | Yes                            |\n| Who can use it ?           | Owner and administrator/staff event  |\n| Response formats           | application/json               |\n\n* HTTP request : POST → shoppings/:item_id/shoppers/define/:user_id\n\n#### Parameters :\n```javascript\n{\n     'event_id': ObjectId // Required\n     'item_id': ObjectId // Required\n     'quantity': Number // Required\n     'hour': Date // Required\n}\n```\n\n#### Response :\n```javascript\n{\n    shop_id: ObjectId\n    name: String\n    creation_date: Date\n    hour: Date\n    quantity: Number\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Edit an item in a shopping list",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Beluga\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/shoppings_item/5ebd8da94c46c20b4469ce7f/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"shoppings_item",
+								"5ebd8da94c46c20b4469ce7f",
+								"update"
+							]
+						},
+						"description": "### [PUT] Update an item in a shopping list\nAllows the update of an item in a shopping list with :id\n\n|                            |                                |\n|----------------------------|--------------------------------|\n| Requires authentication ?  | Yes                            |\n| Who can use it ?           | Owner and administrator/staff event|\n| Response formats           | application/json               |\n\n* HTTP request : PUT → shoppings_item/:id/update\n\n#### Parameters :\n```javascript\n{\n   'name': String // Optionnal\n}\n```\n\n#### Response :\n```javascript\n{\n    shop_id: ObjectId\n    name: String\n    creation_date: Date\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/shoppings_item/5ebd8da94c46c20b4469ce7f/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"shoppings_item",
+								"5ebd8da94c46c20b4469ce7f",
+								"delete"
+							]
+						},
+						"description": "### [DELETE] Delete an item in a shop\nDelete an item in a shop with an :id\n\n|                            |                            |\n|----------------------------|----------------------------|\n| Requires authentication ?  | Yes                        |\n| Who can use it ?           | Owner and administrator/staff event |\n| Response formats           | application/json           |\n\n* HTTP request : DELETE → /shoppings_item/:id/delete\n\n#### Response :\n```javascript\n{\n    status: 200,\n    message: \"successfully deleted\"\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a shop",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/shoppings/5ebd91e34c46c20b4469ce81/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"shoppings",
+								"5ebd91e34c46c20b4469ce81",
+								"delete"
+							]
+						},
+						"description": "### [DELETE] Delete a shop\nDelete a shop with an :id\n\n|                            |                            |\n|----------------------------|----------------------------|\n| Requires authentication ?  | Yes                        |\n| Who can use it ?           | Owner and administrator/staff event |\n| Response formats           | application/json           |\n\n* HTTP request : DELETE → /shoppings/:id/delete\n\n#### Response :\n```javascript\n{\n    status: 200,\n    message: \"successfully deleted\"\n}\n```"
+					},
+					"response": []
+				}
+			],
+			"description": "| Method | Endpoint            | Usage                              | Return        |\n|--------|---------------------|------------------------------------|---------------|\n| GET    | `/shoppings` | Get all shopping list | shopping_list |\n| GET    | `/shoppings/{id}` | Get a shopping list | shopping_list |\n| GET    | `/shoppings/{id}/items` | Get all items from a shopping list | shopping_list |\n| POST    | `/shoppings/create` | Create a shopping list | shopping_list |\n| POST    | `/shoppings/{id}/items/create` | Create an item in a shopping list | item |\n| POST    | `/shoppings_item/{id}/shoppers/define/{user_id}` | Define an user on an item | item |\n| PUT    | `/shoppings_item/{id}/update` | Edit an item from a shopping list | item |\n| DELETE    | `/shoppings_item/{id}/delete` | Delete an item from a shopping list | item |",
 			"protocolProfileBehavior": {}
 		}
 	],

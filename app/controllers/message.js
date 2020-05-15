@@ -217,7 +217,7 @@ class Message {
 	delete_message() {
 		this.app.delete('/message/:id/delete', (req, res) => {
 			try {
-				this.MessageModel.findByIdAndDelete(req.params.id).populate('author_id, discussion_ref').then(message => {
+				this.MessageModel.findByIdAndDelete(req.params.id).then(message => {
 					if(message){
 						res.status(200).json({ 
 							success: {

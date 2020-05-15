@@ -15,7 +15,10 @@ class Shopping {
 		this.ShoppersModel = connect.model('Shoppers', ShoppersModel)
 
 		this.create_shopping_list()
-		this.delete_shopping_list()
+    this.delete_shopping_list()
+    
+    this.get_all_shopping_list()
+    this.get_shopping_list()
 
 		this.create_shopping_item()
 		this.get_shopping_item()
@@ -23,7 +26,6 @@ class Shopping {
 		this.delete_shopping_item()
 
 		this.define_shopper()
-		this.remove_shopper()
 	}
 
 	/**
@@ -34,9 +36,12 @@ class Shopping {
 	create_shopping_list() {
 		this.app.post('/shoppings/create', (req, res) => {
 			try {
-				this.EventModel.findByIdAndUpdate(req.body.event_id, {'shopping_list': true}).populate('managers, members').then(event => {
-					if(event){
-						res.status(201).json({ event })
+				this.EventModel.findById(req.body.event_id).then(event => {
+          if(event.shopping==true){
+            const Shop = this.ShoppersModel(req.body)
+            Shop.save().then(shop => {
+              res.status(201).json({ shop })
+            })
 					}else{
 						res.status(400).json({ 
 							error: {
@@ -64,21 +69,79 @@ class Shopping {
 					})
 				}
 		})
+  }
+  
+  /**
+	 * Get all shopping list
+	 * @Endpoint : /shoppings/{id}
+	 * @Method : GET
+	 */
+	get_all_shopping_list() {
+		this.app.get('/shoppings', (req, res) => {
+			try {
+				this.ShoppersModel.find({}).populate('shop_id').then(shop => {
+					res.status(200).json({ shop })
+				}).catch(err => {
+					res.status(400).json( { 
+						error: {
+							status: 400,
+							message: "invalid id"
+						} 
+					}) 
+				});
+			} catch (err) {
+				res.status(500).json({ 
+					error: { 
+						status: 500, 
+						message: "Internal Server Error"
+					} 
+				})
+			}
+		})
+  }
+  
+  /**
+	 * Get one shopping list
+	 * @Endpoint : /shoppings/{id}
+	 * @Method : GET
+	 */
+	get_shopping_list() {
+		this.app.get('/shoppings/:id', (req, res) => {
+			try {
+				this.ShoppersModel.findById(req.params.id).populate('shop_id').then(shop => {
+					res.status(200).json({ shop })
+				}).catch(err => {
+					res.status(400).json( { 
+						error: {
+							status: 400,
+							message: "invalid id"
+						} 
+					}) 
+				});
+			} catch (err) {
+				res.status(500).json({ 
+					error: { 
+						status: 500, 
+						message: "Internal Server Error"
+					} 
+				})
+			}
+		})
 	}
 
 
 	/**
 	 * Create an item in a shopping list
-	 * @Endpoint : /shoppings/items/create
+	 * @Endpoint : /shoppings/{id}/items/create
 	 * @Method : POST
 	 */
 	create_shopping_item() {
-		this.app.post('/shoppings/items/create', (req, res) => {
+		this.app.post('/shoppings/:id/items/create', (req, res) => {
 			try {
 				const shoppingItemsModel = new this.ShoppingItemsModel(req.body)
 				
-				this.EventModel.findById(req.body.event_id, function(err, event) {
-					if (event) {
+				this.ShoppersModel.findById(req.params.id, function(err, shop) {
+					if (shop) {
 						shoppingItemsModel.save().then(items => {
 							res.status(201).json({ items })
 						}).catch(err => {
@@ -93,11 +156,11 @@ class Shopping {
 						res.status(400).json({ 
 							error: {
 								status: 400,
-								message: "event doesnt exist"
+								message: "shop doesnt exist"
 							} 
 						}) 
 					}
-				}).populate('managers, members');
+				}).populate('staff, members');
 
 			} catch (err) {
 				res.status(500).json({ 
@@ -112,26 +175,15 @@ class Shopping {
 
 
 	/**
-	 * Récupérer les items d'une shopping list
+	 * Get all items in a shop
 	 * @Endpoint : /shoppings/{id}/items
 	 * @Method : GET
 	 */
 	get_shopping_item() {
 		this.app.get('/shoppings/:id/items', (req, res) => {
 			try {
-				this.EventModel.findById(req.params.id).populate('managers, members').then(event => {
-					if(event){
-						this.ShoppingItemsModel.find({"event_id": req.params.id}).populate('event_id').then(shopping_list => {
-							res.status(200).json({ shopping_list })
-						});
-					}else{
-						res.status(400).json({ 
-							error: {
-								status: 400,
-								message: "invalid id"
-							} 
-						})  
-					}
+				this.ShoppingItemsModel.findById({shop_id: req.params.id}).populate('shop_id').then(shop => {
+					res.status(200).json({ shop })
 				}).catch(err => {
 					res.status(400).json( { 
 						error: {
@@ -236,23 +288,19 @@ class Shopping {
 
 	/**
 	 * Supprime une shopping list
-	 * @Endpoint : /shoppings/delete
+	 * @Endpoint : /shoppings/{id}/delete
 	 * @Method : POST
 	 */
 	delete_shopping_list() {
-		this.app.post('/shoppings/delete', (req, res) => {
+		this.app.delete('/shoppings/:id/delete', (req, res) => {
 			try {
-				this.EventModel.findByIdAndUpdate(req.body.event_id, {'shopping_list': false}).populate('managers, members').then(event => {
-					if(event){
-						res.status(201).json({ event })
-					}else{
-						res.status(400).json({ 
-							error: {
-									status: 400,
-									message: "invalid id"
-							} 
-						})  
-					}
+				this.ShoppersModel.findByIdAndDelete(req.params.id).then(event => {
+          res.status(200).json({ 
+            success: {
+              status: 200,
+              message: "successfully deleted"
+            }
+          })
 				}).catch(err => {
 					res.status(400).json({ 
 						error: {

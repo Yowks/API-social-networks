@@ -12,6 +12,10 @@ git clone https://github.com/Yowks/API-social-networks.git
 npm install
 ```
 
+## Documentation 
+
+https://documenter.getpostman.com/view/11385596/SzmiYHBB?version=latest
+
 ## Usage
 
 ```bash
@@ -121,3 +125,16 @@ DB : Cluster connection to Atlas
 | POST    | `/album/{id}/picture/create` | Create a picture in album | picture |
 | PUT    | `/album/{id}/picture/update` | Edit a picture in album | picture |
 | Delete    | `/album/{id}/picture/delete` | Delete a picture in album | boolean |
+
+### Shopping :
+
+| Method | Endpoint            | Usage                              | Return        |
+|--------|---------------------|------------------------------------|---------------|
+| GET    | `/shoppings` | Get all shopping list | shopping_list |
+| GET    | `/shoppings/{id}` | Get a shopping list | shopping_list |
+| GET    | `/shoppings/{id}/items` | Get all items from a shopping list | shopping_list |
+| POST    | `/shoppings/create` | Create a shopping list | shopping_list |
+| POST    | `/shoppings/{id}/items/create` | Create an item in a shopping list | item |
+| POST    | `/shoppings_item/{id}/shoppers/define/{user_id}` | Define an user on an item | item |
+| PUT    | `/shoppings_item/{id}/update` | Edit an item from a shopping list | item |
+| DELETE    | `/shoppings_item/{id}/delete` | Delete an item from a shopping list | item |

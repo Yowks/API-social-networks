@@ -1,13 +1,15 @@
 const mongoose = require('mongoose')
 
 const Schema = new mongoose.Schema({
-	event_id: {
+	shop_id: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Event',
+		ref: 'Shop',
 		required: true
 	},
 	name: { type: String, required: true, trim: true },
 	creation_date: { type: Date, default: Date.now, required: true },
+	hour: { type: Date},
+	quantity: { type: Number}
 }, {
 	collection: 'shopping_items',
 	minimize: false,
